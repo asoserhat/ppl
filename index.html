@@ -7,6 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -17,7 +18,7 @@
   --red:#ff4444;--red-d:#5a0000;
   --slate:#8ea8c8;--muted:#2a4060;
   --tx:#c8dff0;--tx-d:#4a6a8a;--tx-b:#e8f4ff;
-  --fh:'Orbitron',monospace;--fd:'Share Tech Mono',monospace;--fb:'Rajdhani',sans-serif;
+  --fh:'Orbitron','Segoe UI','Arial',sans-serif;--fd:'Share Tech Mono',monospace;--fb:'Rajdhani',sans-serif;
 }
 html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:13px;}
 .w{padding:10px;max-width:1400px;margin:0 auto;}
@@ -27,8 +28,8 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
 .hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),var(--ora),var(--blue),transparent);}
 .hdr-title{font-family:var(--fh);font-size:18px;font-weight:900;letter-spacing:3px;color:var(--blue-b);}
 .hdr-sub{font-family:var(--fd);font-size:9px;color:var(--slate);letter-spacing:2px;margin-top:2px;}
-.hdr-pills{display:flex;gap:6px;flex-wrap:wrap;}
-.pill{font-family:var(--fd);font-size:9px;padding:2px 8px;border-radius:12px;border:1px solid var(--brd);color:var(--tx-d);}
+.hdr-pills{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.pill{font-family:var(--fd);font-size:9px;padding:3px 10px;border-radius:12px;border:1px solid var(--brd);color:var(--tx-d);display:flex;align-items:center;}
 .pill.green{border-color:var(--grn-d);color:var(--grn);background:rgba(0,77,38,0.2);}
 .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--grn);animation:pulse 2s infinite;margin-right:4px;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
@@ -162,20 +163,75 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
 /* ── Login overlay ───────────────────────────────── */
 #login-screen{position:fixed;inset:0;background:var(--bg);z-index:9000;display:flex;align-items:center;justify-content:center;}
 #login-screen.hidden{display:none;}
-.login-box{background:var(--panel);border:1px solid var(--blue);border-radius:8px;padding:32px 36px;width:340px;text-align:center;position:relative;overflow:hidden;}
+.login-box{background:var(--panel);border:1px solid var(--blue);border-radius:8px;padding:28px 32px;width:360px;max-width:96vw;text-align:center;position:relative;overflow:hidden;}
 .login-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),var(--ora),var(--blue),transparent);}
 .login-title{font-family:var(--fh);font-size:16px;font-weight:900;letter-spacing:3px;color:var(--blue-b);margin-bottom:4px;}
-.login-sub{font-family:var(--fd);font-size:8px;color:var(--slate);letter-spacing:2px;margin-bottom:24px;}
-.login-field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;text-align:left;}
+.login-sub{font-family:var(--fd);font-size:8px;color:var(--slate);letter-spacing:2px;margin-bottom:18px;}
+.login-tabs{display:flex;margin-bottom:18px;border-bottom:1px solid var(--brd);}
+.login-tab{flex:1;padding:7px;font-family:var(--fd);font-size:9px;letter-spacing:2px;color:var(--tx-d);cursor:pointer;transition:all .15s;border-bottom:2px solid transparent;user-select:none;}
+.login-tab.active{color:var(--blue-b);border-bottom-color:var(--blue);}
+.login-field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;text-align:left;}
 .login-field label{font-family:var(--fd);font-size:8px;color:var(--tx-d);letter-spacing:1px;}
 .login-field input{background:var(--card);border:1px solid var(--brd);border-radius:3px;color:var(--tx-b);font-family:var(--fd);font-size:12px;padding:8px 10px;outline:none;transition:border-color .2s;width:100%;}
 .login-field input:focus{border-color:var(--blue);}
 .login-btn{width:100%;background:var(--blue);border:none;color:#fff;font-family:var(--fh);font-size:10px;letter-spacing:2px;padding:10px;border-radius:4px;cursor:pointer;margin-top:8px;transition:background .2s;}
+.avatar-lbl{font-family:var(--fd);font-size:8px;color:var(--tx-d);letter-spacing:1px;text-align:left;margin-bottom:6px;}
+.avatar-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-bottom:12px;}
+.av-btn{background:rgba(255,255,255,0.03);border:1px solid var(--brd);border-radius:5px;padding:5px 2px;font-size:16px;cursor:pointer;text-align:center;transition:all .12s;line-height:1.2;}
+.av-btn:hover{border-color:var(--slate);background:rgba(255,255,255,0.07);}
+.av-btn.av-sel{border-color:var(--blue);background:rgba(26,111,219,0.22);box-shadow:0 0 6px rgba(26,111,219,0.3);}
+.pending-badge{font-family:var(--fd);font-size:9px;padding:3px 10px;border-radius:12px;border:1px solid var(--amb);color:var(--amb);background:rgba(74,53,0,0.3);cursor:pointer;animation:pulse 2s infinite;display:none;}
+#pending-modal{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.82);display:flex;align-items:center;justify-content:center;}
+#pending-modal.hidden{display:none!important;}
+.pend-box{background:var(--panel);border:1px solid var(--amb);border-radius:8px;width:400px;max-width:94vw;max-height:80vh;overflow-y:auto;}
+.pend-hdr{padding:12px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;}
+.pend-row{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid rgba(26,45,74,0.5);}
+.pend-av{font-size:30px;line-height:1;}
+.pend-info{flex:1;}
+.pend-name{font-family:var(--fh);font-size:11px;font-weight:900;color:var(--tx-b);}
+.pend-date{font-family:var(--fd);font-size:7px;color:var(--tx-d);margin-top:2px;}
+.pend-approve{font-family:var(--fd);font-size:8px;padding:4px 12px;background:rgba(0,77,38,0.4);border:1px solid var(--grn);color:var(--grn);border-radius:4px;cursor:pointer;transition:all .15s;letter-spacing:1px;}
+.pend-approve:hover{background:var(--grn-d);border-color:var(--grn);}
+.pend-reject{font-family:var(--fd);font-size:8px;padding:4px 10px;background:rgba(90,0,0,0.35);border:1px solid var(--red);color:var(--red);border-radius:4px;cursor:pointer;transition:all .15s;letter-spacing:1px;margin-left:4px;}
+.pend-reject:hover{background:var(--red-d);}
+.pend-btns{display:flex;gap:4px;align-items:center;}
+
+/* ── User Management Modal ─────────────────────────── */
+#users-modal{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.82);display:flex;align-items:center;justify-content:center;}
+#users-modal.hidden{display:none!important;}
+.users-box{background:var(--panel);border:1px solid var(--blue);border-radius:8px;width:480px;max-width:94vw;max-height:84vh;overflow-y:auto;}
+.users-box-hdr{padding:12px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--panel);z-index:1;}
+.urow{padding:10px 16px;border-bottom:1px solid rgba(26,45,74,0.4);}
+.urow-main{display:flex;align-items:center;gap:10px;}
+.urow-av{font-size:26px;line-height:1;}
+.urow-info{flex:1;}
+.urow-name{font-family:var(--fh);font-size:11px;font-weight:900;color:var(--tx-b);}
+.urow-badges{display:flex;gap:4px;margin-top:3px;}
+.rbadge{font-family:var(--fd);font-size:7px;padding:1px 6px;border-radius:8px;letter-spacing:1px;}
+.rbadge.admin{background:rgba(26,111,219,0.18);border:1px solid var(--blue);color:var(--blue-b);}
+.rbadge.guest{background:rgba(74,53,0,0.18);border:1px solid var(--amb);color:var(--amb);}
+.sbadge{font-family:var(--fd);font-size:7px;padding:1px 6px;border-radius:8px;letter-spacing:1px;}
+.sbadge.active{background:rgba(0,77,38,0.18);border:1px solid var(--grn);color:var(--grn);}
+.sbadge.pending{background:rgba(74,53,0,0.18);border:1px solid var(--amb);color:var(--amb);}
+.u-edit-btn{font-family:var(--fd);font-size:8px;padding:3px 10px;background:rgba(26,111,219,0.15);border:1px solid var(--blue);color:var(--blue-b);border-radius:4px;cursor:pointer;transition:all .15s;letter-spacing:1px;}
+.u-edit-btn:hover{background:var(--blue-d);}
+.u-del-btn{font-family:var(--fd);font-size:8px;padding:3px 8px;background:rgba(90,0,0,0.25);border:1px solid var(--red);color:var(--red);border-radius:4px;cursor:pointer;transition:all .15s;margin-left:4px;}
+.u-del-btn:hover{background:var(--red-d);}
+.u-edit-panel{margin-top:10px;padding:12px;background:var(--card);border-radius:6px;border:1px solid var(--brd);display:none;}
+.u-edit-panel.open{display:block;}
+.u-edit-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap;}
+.u-edit-lbl{font-family:var(--fd);font-size:7px;color:var(--tx-d);letter-spacing:1px;width:60px;}
+.u-role-sel{background:var(--bg);border:1px solid var(--brd);color:var(--tx);font-family:var(--fd);font-size:10px;padding:4px 8px;border-radius:4px;outline:none;}
+.u-pass-inp{background:var(--bg);border:1px solid var(--brd);color:var(--tx);font-family:var(--fd);font-size:10px;padding:4px 8px;border-radius:4px;outline:none;flex:1;}
+.u-save-btn{font-family:var(--fh);font-size:8px;font-weight:700;letter-spacing:2px;padding:5px 14px;background:rgba(0,77,38,0.3);border:1px solid var(--grn);color:var(--grn);border-radius:4px;cursor:pointer;transition:all .15s;}
+.u-save-btn:hover{background:var(--grn-d);}
+.edit-av-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin-top:4px;}
 .login-btn:hover{background:var(--blue-b);}
 .login-err{font-family:var(--fd);font-size:9px;color:var(--red);margin-top:8px;min-height:14px;}
 
 /* ── Mobile ──────────────────────────────────────── */
 @media(max-width:600px){
+  .motivation-grid{grid-template-columns:1fr!important;}
   .dash-row{grid-template-columns:1fr 1fr;}
   .kpi-val{font-size:22px;}
   .kpi-arc{display:none;}
@@ -196,7 +252,131 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
   .lt{font-size:9px;}
   .lt th{font-size:6px;}
 }
+/* ── Guest mode ──────────────────────────────────── */
+.guest-mode .ql{display:none!important;}
+.guest-mode .del-btn,.guest-mode .edit-btn{display:none!important;}
+.guest-mode #hl-add-form{display:none!important;}
+.guest-mode #kpi-cost{font-size:0!important;}
+.guest-mode #kpi-cost::after{content:'$ ···';font-size:22px;color:var(--amb);opacity:0.35;}
+.guest-mode #kpi-cost-sub{font-size:0!important;}
+.guest-mode #kpi-cost-sub::after{content:'🔒 admin only';font-size:8px;color:var(--tx-d);}
+.guest-mode #pb-cost{opacity:0;}
+.guest-mode #f-acft-cost,.guest-mode #f-cfi-cost,.guest-mode #f-grand,.guest-mode .fl-cost{font-size:0!important;}
+.guest-mode .fl-cost::after{content:'···';font-size:9px;color:var(--muted);opacity:0.5;}
+.guest-mode #f-acft-cost::after,.guest-mode #f-cfi-cost::after{content:'···';font-size:9px;color:var(--amb);opacity:0.4;}
+.guest-mode #f-grand::after{content:'$ ···';font-size:9px;color:var(--ora-b);opacity:0.4;}
+.guest-mode #cost-preview{font-size:0!important;}
+.guest-mode #cost-preview::after{content:'🔒 cost hidden';font-size:8px;color:var(--tx-d);opacity:0.6;}
+.guest-mode .ci,.guest-mode .ei{pointer-events:none;cursor:default;opacity:0.7;}
+.guest-badge{font-family:var(--fd);font-size:9px;padding:3px 10px;border-radius:12px;border:1px solid var(--amb);color:var(--amb);background:rgba(74,53,0,0.3);}
+
 @media print{@page{size:A3 landscape;margin:6mm;}body{min-width:unset;}.ql,.toast{display:none!important;}}
+
+/* ── Family Animation Overlay ─────────────────────────────── */
+#fam-anim-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;cursor:pointer;animation:fadein .35s ease;}
+#fam-anim-overlay.hidden{display:none!important;}
+.fam-scene{position:relative;width:480px;max-width:92vw;height:300px;border-radius:14px;overflow:hidden;}
+.fam-title{font-family:var(--fh);font-size:14px;font-weight:900;letter-spacing:4px;text-align:center;animation:fadeup .5s .2s both;}
+.fam-hint{font-family:var(--fd);font-size:8px;color:rgba(255,255,255,0.25);letter-spacing:3px;}
+.fam-tile{cursor:pointer;transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column;}
+.fam-tile>div:last-child{margin-top:auto!important;}
+.fam-tile:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.5);}
+.fam-tile:active{transform:scale(.97);}
+/* Family Tree */
+.ft-gen{width:100%;text-align:center;margin-bottom:0;}
+.ft-gen-lbl{font-family:var(--fd);font-size:8px;letter-spacing:2px;color:var(--slate);margin-bottom:14px;}
+.ft-gen-row{display:flex;justify-content:center;align-items:flex-start;gap:12px;flex-wrap:wrap;}
+.ft-couple{display:flex;align-items:flex-start;gap:8px;}
+.ft-heart{font-size:14px;color:var(--muted);padding-top:20px;}
+.ft-connector{height:32px;display:flex;justify-content:center;}
+.ft-vline{width:1px;background:linear-gradient(to bottom,var(--brd),rgba(26,45,74,0.1));}
+.ftc{display:flex;flex-direction:column;align-items:center;width:118px;}
+.ftc-box{width:100%;border-radius:6px;padding:11px 8px;text-align:center;border-top:3px solid;transition:transform .15s;min-height:105px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ftc:hover .ftc-box{transform:translateY(-3px);}
+.ftc-box.m{border-color:var(--blue-b);background:rgba(13,61,122,0.25);}
+.ftc-box.f{border-color:#f07ab0;background:rgba(110,10,65,0.2);}
+.ftc-box.m.z,.ftc-box.f.z{border-style:dashed;border-color:#484848;background:rgba(20,20,20,0.55);opacity:0.45;}
+.ftc-box.you{border-color:var(--grn)!important;background:rgba(0,77,38,0.3)!important;box-shadow:0 0 22px rgba(0,200,100,0.18);opacity:1!important;border-width:2px;}
+.ftc-box.coming{border-color:var(--ora)!important;background:rgba(100,55,0,0.3)!important;opacity:1!important;animation:pulse 2s infinite;}
+.ftc-box.you{cursor:pointer;}
+.pip-popup{position:fixed;bottom:24px;right:24px;width:320px;background:var(--bg-c);border:2px solid var(--grn);border-radius:12px;box-shadow:0 8px 40px rgba(0,200,100,0.25);z-index:9999;overflow:hidden;animation:pipIn .3s ease-out;}
+.pip-popup .pip-header{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(0,77,38,0.3);font-family:var(--fd);font-size:8px;color:var(--grn);letter-spacing:1px;}
+.pip-popup .pip-close{cursor:pointer;font-size:14px;color:var(--slate);transition:color .15s;}
+.pip-popup .pip-close:hover{color:var(--grn);}
+.pip-popup iframe{display:block;width:100%;height:480px;border:none;}
+@keyframes pipIn{from{opacity:0;transform:translateY(20px) scale(0.9);}to{opacity:1;transform:translateY(0) scale(1);}}
+.ftc-icon{font-size:16px;margin-bottom:5px;color:var(--tx-d);}
+.ftc-name{font-family:var(--fd);font-size:8px;color:var(--tx-b);line-height:1.4;letter-spacing:.3px;}
+.ftc-date{font-family:var(--fd);font-size:7px;color:var(--muted);margin-top:2px;}
+.ftc-tag{font-family:var(--fd);font-size:6px;letter-spacing:1px;padding:2px 6px;border-radius:3px;display:inline-block;margin-top:5px;}
+
+@keyframes fly-arc{
+  0%  {transform:translate(-120px,20px) rotate(-6deg);opacity:0}
+  8%  {opacity:1}
+  50% {transform:translate(220px,-35px) rotate(-9deg);opacity:1}
+  92% {opacity:1}
+  100%{transform:translate(560px,-15px) rotate(-5deg);opacity:0}
+}
+@keyframes heart-sway{
+  0%  {transform:translateY(0) translateX(0) scale(1);opacity:1}
+  50% {transform:translateY(-90px) translateX(15px) scale(1.15);opacity:.9}
+  100%{transform:translateY(-210px) translateX(-8px) scale(.3);opacity:0}
+}
+@keyframes burst{
+  0%  {transform:translate(-50%,-55%) scale(0);opacity:0}
+  30% {transform:translate(-50%,-55%) scale(1.25);opacity:1}
+  60% {transform:translate(-50%,-55%) scale(.95);opacity:1}
+  100%{transform:translate(-50%,-55%) scale(1.05);opacity:1}
+}
+@keyframes celebrate{
+  0%  {transform:translateY(100px) rotate(0deg);opacity:0}
+  15% {opacity:1}
+  80% {opacity:.8}
+  100%{transform:translateY(-30px) rotate(360deg);opacity:0}
+}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cloud-drift{from{transform:translateX(-120px)}to{transform:translateX(600px)}}
+@keyframes twinkle{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.5)}}
+@keyframes rainbow-in{0%{opacity:0;clip-path:inset(0 100% 0 0)}60%{opacity:.5;clip-path:inset(0 0 0 0)}100%{opacity:.35;clip-path:inset(0 0 0 0)}}
+
+/* ── Notes / Kudos ─────────────────────────────────── */
+.notes-panel{background:var(--panel);border:1px solid var(--brd);border-radius:6px;margin-bottom:8px;}
+.notes-hdr{display:flex;align-items:center;gap:8px;padding:10px 14px;cursor:pointer;user-select:none;border-radius:6px;}
+.notes-hdr:hover{background:rgba(255,255,255,0.015);}
+.notes-latest-row{display:flex;gap:8px;flex-wrap:wrap;padding:10px 14px 0;}
+.note-card{background:var(--card);border:1px solid var(--brd);border-radius:8px;padding:10px 12px;flex:0 0 auto;max-width:230px;min-width:160px;position:relative;transition:border-color .15s;}
+.note-card.pos{border-left:3px solid var(--grn);}
+.note-card.neg{border-left:3px solid var(--red);}
+.nc-kudo{font-size:22px;line-height:1;margin-bottom:4px;}
+.nc-author{font-family:var(--fd);font-size:7px;color:var(--slate);letter-spacing:2px;}
+.nc-msg{font-family:var(--fb);font-size:11px;color:var(--tx);margin-top:3px;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.nc-msg-full{font-family:var(--fb);font-size:12px;color:var(--tx);margin-top:4px;line-height:1.6;word-break:break-word;}
+.nc-time{font-family:var(--fd);font-size:7px;color:var(--tx-d);margin-top:4px;}
+.nc-del{position:absolute;top:5px;right:6px;background:none;border:none;color:var(--red);cursor:pointer;font-size:10px;opacity:0;padding:2px 4px;transition:opacity .15s;}
+.note-card:hover .nc-del{opacity:.65;}
+.nc-del:hover{opacity:1!important;}
+.notes-divider{border:none;border-top:1px solid var(--brd);margin:10px 14px 0;}
+.notes-see-all{padding:8px 14px;font-family:var(--fd);font-size:8px;color:var(--tx-d);cursor:pointer;display:flex;align-items:center;gap:6px;user-select:none;letter-spacing:1px;}
+.notes-see-all:hover{color:var(--tx);}
+.notes-all-list{padding:0 14px 0;display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;}
+.notes-all-list .note-card{max-width:100%;width:100%;}
+.notes-add{padding:12px 14px;border-top:1px solid var(--brd);margin-top:10px;}
+.notes-add-lbl{font-family:var(--fd);font-size:8px;color:var(--tx-d);letter-spacing:2px;margin-bottom:8px;}
+.kudo-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.kudo-btn{background:rgba(255,255,255,0.03);border:1px solid var(--brd);border-radius:6px;padding:4px 8px;font-size:15px;cursor:pointer;transition:all .12s;opacity:.5;line-height:1;}
+.kudo-btn:hover{opacity:.85;border-color:var(--slate);}
+.kudo-btn.ksel-pos{border-color:var(--grn);background:rgba(0,230,118,0.12);opacity:1;box-shadow:0 0 8px rgba(0,230,118,0.2);}
+.kudo-btn.ksel-neg{border-color:var(--red);background:rgba(255,68,68,0.12);opacity:1;box-shadow:0 0 8px rgba(255,68,68,0.2);}
+.note-input{width:100%;background:var(--bg);border:1px solid var(--brd);border-radius:5px;color:var(--tx);font-family:var(--fb);font-size:12px;padding:8px 10px;resize:none;outline:none;transition:border-color .15s;margin-bottom:8px;}
+.note-input:focus{border-color:var(--blue);}
+.note-send-btn{font-family:var(--fh);font-size:8px;font-weight:700;letter-spacing:2px;padding:6px 18px;background:rgba(26,111,219,0.18);border:1px solid var(--blue);color:var(--blue-b);border-radius:4px;cursor:pointer;transition:all .15s;}
+.note-send-btn:hover:not(:disabled){background:var(--blue);color:white;}
+.note-send-btn:disabled{opacity:.35;cursor:not-allowed;}
+.notes-score-row{display:flex;gap:16px;align-items:center;padding:8px 14px;flex-wrap:wrap;}
+.ns-score{font-family:var(--fh);font-size:13px;font-weight:900;}
+.ns-lbl{font-family:var(--fd);font-size:7px;color:var(--tx-d);letter-spacing:1px;}
+@media(max-width:600px){.note-card{max-width:100%;width:100%;min-width:unset;}.notes-latest-row{flex-direction:column;}}
 </style>
 </head>
 <body>
@@ -206,15 +386,43 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
   <div class="login-box">
     <div class="login-title">PPL MISSION CONTROL</div>
     <div class="login-sub">◆ AHMET OZGER · KHEG · 2026 ◆</div>
-    <div class="login-field">
-      <label>USERNAME</label>
-      <input type="text" id="login-user" placeholder="username" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="login-tabs">
+      <div class="login-tab active" id="tab-login" onclick="switchLoginTab('login')" data-i18n="tab_login">LOGIN</div>
+      <div class="login-tab" id="tab-register" onclick="switchLoginTab('register')" data-i18n="tab_register">REGISTER</div>
     </div>
-    <div class="login-field">
-      <label>PASSWORD</label>
-      <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+
+    <!-- LOGIN FORM -->
+    <div id="login-form">
+      <div class="login-field">
+        <label data-i18n="username">USERNAME</label>
+        <input type="text" id="login-user" placeholder="username" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div class="login-field">
+        <label data-i18n="password">PASSWORD</label>
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <button class="login-btn" id="login-btn" onclick="doLogin()" data-i18n="login_btn">LOGIN →</button>
     </div>
-    <button class="login-btn" onclick="doLogin()">LOGIN →</button>
+
+    <!-- REGISTER FORM -->
+    <div id="register-form" style="display:none;">
+      <div class="login-field">
+        <label data-i18n="username">USERNAME</label>
+        <input type="text" id="reg-user" placeholder="minimum 3 characters" autocomplete="off">
+      </div>
+      <div class="login-field">
+        <label data-i18n="password">PASSWORD</label>
+        <input type="password" id="reg-pass" placeholder="••••••••" autocomplete="new-password">
+      </div>
+      <div class="login-field">
+        <label data-i18n="confirm_password">CONFIRM PASSWORD</label>
+        <input type="password" id="reg-pass2" placeholder="••••••••" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()">
+      </div>
+      <div class="avatar-lbl"><i class="fa-solid fa-face-smile" style="margin-right:4px;"></i><span data-i18n="pick_avatar">PICK YOUR AVATAR</span></div>
+      <div class="avatar-grid" id="avatar-grid"></div>
+      <button class="login-btn" id="reg-btn" onclick="doRegister()" style="background:var(--ora-d);border:1px solid var(--ora);color:var(--ora-b);" data-i18n="request_access">REQUEST ACCESS →</button>
+    </div>
+
     <div class="login-err" id="login-err"></div>
   </div>
 </div>
@@ -224,14 +432,29 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
 <!-- HEADER -->
 <div class="hdr">
   <div>
-    <div class="hdr-title">PPL MISSION CONTROL</div>
+    <div class="hdr-title" style="display:flex;align-items:center;gap:10px;">
+      <span style="display:inline-flex;align-items:center;gap:5px;">
+        <i class="fa-solid fa-plane-up" style="font-size:15px;color:var(--blue-b);filter:drop-shadow(0 0 6px rgba(77,163,255,0.8));transform:rotate(-10deg);"></i>
+        <span style="font-size:10px;color:var(--blue);opacity:0.6;letter-spacing:4px;font-family:var(--fd);">✦✦✦</span>
+      </span>
+      <span data-i18n="app_title">PPL MISSION CONTROL</span>
+    </div>
     <div class="hdr-sub">◆ AHMET OZGER · KHEG · A-CENT AVIATION · FAR 14 CFR PART 61 ◆</div>
   </div>
   <div class="hdr-pills">
-    <span class="pill green"><span class="dot"></span>ACTIVE TRAINING</span>
-    <span class="pill">KHEG · HERLONG ARPT, FL</span>
-    <span class="pill">4 HRS/WK TARGET</span>
-    <button onclick="doLogout()" style="background:transparent;border:1px solid var(--muted);color:var(--tx-d);font-family:var(--fd);font-size:8px;padding:2px 10px;border-radius:12px;cursor:pointer;transition:all .2s;letter-spacing:1px;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)';" onmouseout="this.style.borderColor='var(--muted)';this.style.color='var(--tx-d)';">LOGOUT</button>
+    <span class="pill green"><span class="dot"></span><span data-i18n="active_training">ACTIVE TRAINING</span></span>
+    <span class="pill"><i class="fa-solid fa-location-dot" style="margin-right:3px;"></i>KHEG · HERLONG ARPT, FL</span>
+    <span class="pill"><i class="fa-solid fa-stopwatch" style="margin-right:3px;"></i><span data-i18n="hrs_wk">4 HRS/WK TARGET</span></span>
+    <span class="guest-badge" id="guest-badge" style="display:none;"><i class="fa-solid fa-eye" style="margin-right:3px;"></i><span data-i18n="viewing_as_guest">VIEWING AS GUEST</span></span>
+    <span id="family-btn" style="display:none;font-family:var(--fd);font-size:9px;padding:3px 10px;border-radius:12px;border:1px solid var(--grn-d);color:var(--grn);background:rgba(0,77,38,0.2);cursor:pointer;letter-spacing:1px;" onclick="openFamilyModal()"><i class="fa-solid fa-sitemap" style="margin-right:4px;"></i><span data-i18n="family">FAMILY</span></span>
+    <span id="users-btn" style="display:none;font-family:var(--fd);font-size:9px;padding:3px 10px;border-radius:12px;border:1px solid var(--blue);color:var(--blue-b);background:rgba(13,61,122,0.3);cursor:pointer;letter-spacing:1px;align-items:center;" onclick="openUsersModal()"><i class="fa-solid fa-users" style="margin-right:4px;"></i><span data-i18n="users">USERS</span></span>
+    <span class="pending-badge" id="pending-badge" onclick="openPendingModal()"><i class="fa-solid fa-user-clock" style="margin-right:4px;"></i><span id="pending-count">0</span> <span data-i18n="pending">PENDING</span></span>
+    <div style="display:flex;align-items:center;gap:1px;background:rgba(255,255,255,0.04);border:1px solid var(--brd);border-radius:12px;padding:0 3px;">
+      <span id="lang-en" onclick="setLang('en')" style="cursor:pointer;padding:3px 8px;border-radius:9px;font-family:var(--fd);font-size:9px;letter-spacing:1px;transition:all .15s;">EN</span>
+      <span style="color:var(--muted);font-size:8px;opacity:0.5;">|</span>
+      <span id="lang-tr" onclick="setLang('tr')" style="cursor:pointer;padding:3px 8px;border-radius:9px;font-family:var(--fd);font-size:9px;letter-spacing:1px;transition:all .15s;">TR</span>
+    </div>
+    <button onclick="doLogout()" style="background:transparent;border:1px solid var(--muted);color:var(--tx-d);font-family:var(--fd);font-size:9px;padding:3px 10px;border-radius:12px;cursor:pointer;transition:all .2s;letter-spacing:1px;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)';" onmouseout="this.style.borderColor='var(--muted)';this.style.color='var(--tx-d)';"><i class="fa-solid fa-right-from-bracket" style="margin-right:3px;"></i><span data-i18n="logout">LOGOUT</span></button>
   </div>
 </div>
 
@@ -239,7 +462,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
 <div class="dash-row">
 
   <div class="kpi">
-    <div class="kpi-lbl">TOTAL HOURS</div>
+    <div class="kpi-lbl"><i class="fa-solid fa-clock" style="margin-right:4px;"></i><span data-i18n="kpi_total_hours">TOTAL HOURS</span></div>
     <div class="kpi-val" id="kpi-total" style="color:var(--blue-b);">0.0</div>
     <div class="kpi-sub" id="kpi-total-sub">of 40.0 required</div>
     <div class="kpi-bar"><div class="kpi-bar-fill" id="pb-total" style="width:0%;background:var(--blue-b);"></div></div>
@@ -254,7 +477,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
   </div>
 
   <div class="kpi">
-    <div class="kpi-lbl">DUAL / SOLO</div>
+    <div class="kpi-lbl"><i class="fa-solid fa-plane" style="margin-right:4px;"></i><span data-i18n="kpi_dual_solo">DUAL / SOLO</span></div>
     <div class="kpi-val" id="kpi-dual" style="color:var(--grn);font-size:22px;">0.0 / 0.0</div>
     <div class="kpi-sub">of 20 dual · 10 solo req'd</div>
     <div class="kpi-bar" style="margin-top:4px;"><div class="kpi-bar-fill" id="pb-dual" style="width:0%;background:var(--grn);"></div></div>
@@ -262,22 +485,59 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
   </div>
 
   <div class="kpi">
-    <div class="kpi-lbl">TOTAL SPENT</div>
+    <div class="kpi-lbl"><i class="fa-solid fa-dollar-sign" style="margin-right:4px;"></i><span data-i18n="kpi_total_spent">TOTAL SPENT</span></div>
     <div class="kpi-val" id="kpi-cost" style="color:var(--amb);font-size:22px;">$0</div>
     <div class="kpi-sub" id="kpi-cost-sub">Acft $0 + CFI $0</div>
     <div class="kpi-bar"><div class="kpi-bar-fill" id="pb-cost" style="width:0%;background:var(--amb);"></div></div>
   </div>
 
   <div class="kpi">
-    <div class="kpi-lbl">CHECKRIDE</div>
+    <div class="kpi-lbl"><i class="fa-solid fa-calendar-check" style="margin-right:4px;"></i><span data-i18n="kpi_checkride">CHECKRIDE</span></div>
     <div class="kpi-val" id="kpi-days" style="color:var(--ora-b);">—</div>
     <div class="kpi-sub">days · Nov 15 2026</div>
     <div style="margin-top:6px;font-family:var(--fd);font-size:8px;color:var(--tx-d);">Medical target: <span id="kpi-med-days" style="color:var(--ora);">— days</span></div>
   </div>
 
-  <div class="chart-panel">
-    <div class="chart-lbl">◈ CUMULATIVE HOURS — TARGET vs ACTUAL</div>
-    <svg id="chart-svg" height="95" preserveAspectRatio="none"></svg>
+  <div class="chart-panel" style="display:flex;flex-direction:column;gap:0;">
+    <div class="chart-lbl"><i class="fa-solid fa-heart-pulse" style="margin-right:4px;color:var(--red);"></i><span data-i18n="health_monitor">HEALTH MONITOR</span></div>
+    <div id="health-monitor-content" style="flex:1;display:flex;align-items:center;">
+      <div style="font-family:var(--fd);font-size:8px;color:var(--muted);">Loading…</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FAMILY MOTIVATION -->
+<div class="motivation-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;">
+
+  <div class="fam-tile" onclick="openFamAnim('mevanur',event)" style="background:var(--panel);border:1px solid var(--blue);border-radius:6px;padding:16px 14px;text-align:center;position:relative;overflow:hidden;">
+    <div style="position:absolute;right:-8px;top:-8px;font-size:64px;opacity:0.04;color:var(--blue);"><i class="fa-solid fa-plane"></i></div>
+    <i class="fa-solid fa-child-reaching" style="font-size:30px;color:var(--blue-b);display:block;margin-bottom:8px;"></i>
+    <div style="font-family:var(--fh);font-size:12px;font-weight:900;color:var(--blue-b);letter-spacing:3px;margin-bottom:6px;">MEVANUR</div>
+    <div style="font-family:var(--fd);font-size:9px;color:var(--tx);line-height:1.6;" data-i18n="mevanur_text">Your biggest fan is waiting for her first flight with daddy. Every hour you log is one hour closer.</div>
+    <div style="font-family:var(--fh);font-size:7px;color:var(--blue);letter-spacing:1px;margin-top:10px;padding-top:8px;border-top:1px solid var(--blue-d);">
+      <i class="fa-solid fa-plane" style="margin-right:4px;"></i><span data-i18n="mevanur_footer">MEVA WILL FLY WITH DADDY</span>
+    </div>
+  </div>
+
+  <div class="fam-tile" onclick="openFamAnim('baby',event)" style="background:var(--panel);border:1px solid var(--ora);border-radius:6px;padding:16px 14px;text-align:center;position:relative;overflow:hidden;">
+    <div style="position:absolute;right:-8px;top:-8px;font-size:64px;opacity:0.04;color:var(--ora);"><i class="fa-solid fa-baby"></i></div>
+    <i class="fa-solid fa-baby" style="font-size:30px;color:var(--ora-b);display:block;margin-bottom:8px;"></i>
+    <div style="font-family:var(--fh);font-size:12px;font-weight:900;color:var(--ora-b);letter-spacing:3px;margin-bottom:6px;" data-i18n="tile_baby">BABY GIRL</div>
+    <div style="font-family:var(--fd);font-size:9px;color:var(--tx);line-height:1.6;" data-i18n="baby_text">Arriving September 2026 — earn your wings before she opens her eyes to the world for the first time.</div>
+    <div style="font-family:var(--fh);font-size:7px;color:var(--ora);letter-spacing:1px;margin-top:10px;padding-top:8px;border-top:1px solid var(--ora-d);" id="baby-countdown">
+      <i class="fa-solid fa-heart" style="margin-right:4px;"></i>CALCULATING…
+    </div>
+  </div>
+
+  <div class="fam-tile" onclick="openFamAnim('mission',event)" style="background:var(--panel);border:1px solid var(--grn);border-radius:6px;padding:16px 14px;text-align:center;position:relative;overflow:hidden;">
+    <div style="position:absolute;right:-8px;top:-8px;font-size:64px;opacity:0.04;color:var(--grn);"><i class="fa-solid fa-certificate"></i></div>
+    <i class="fa-solid fa-certificate" style="font-size:30px;color:var(--grn);display:block;margin-bottom:8px;"></i>
+    <div style="font-family:var(--fh);font-size:12px;font-weight:900;color:var(--grn);letter-spacing:3px;margin-bottom:6px;" data-i18n="tile_mission">THE MISSION</div>
+    <div style="font-family:var(--fd);font-size:9px;color:var(--tx);line-height:1.6;" data-i18n="mission_text">PPL by Nov 15, 2026. Fly for Meva and the new baby. Nothing stops a father on a mission.</div>
+    <div style="font-family:var(--fh);font-size:7px;color:var(--grn);letter-spacing:1px;margin-top:10px;padding-top:8px;border-top:1px solid var(--grn-d);">
+      <i class="fa-solid fa-fist-raised" style="margin-right:4px;"></i><span data-i18n="mission_footer">YOU WILL DO THIS 💪</span>
+    </div>
   </div>
 
 </div>
@@ -285,7 +545,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
 <!-- HEALTH TIMELINE (always visible) -->
 <div class="tl-panel" style="background:var(--panel);border:1px solid var(--brd);border-radius:6px;padding:10px 12px;margin-bottom:8px;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-    <div class="sec-title">◈ HEALTH TIMELINE — DIABETES MANAGEMENT SCORE / 100</div>
+    <div class="sec-title"><span data-i18n="health_tl_title">◈ HEALTH TIMELINE — DIABETES MANAGEMENT SCORE / 100</span></div>
     <div id="hl-status" style="font-family:var(--fd);font-size:9px;font-weight:bold;"></div>
   </div>
   <svg id="hl-svg" width="100%" height="130" preserveAspectRatio="none" style="display:block;overflow:visible;"></svg>
@@ -294,7 +554,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
 <!-- HEALTH LOG (collapsible) -->
 <div class="lg" style="margin-bottom:8px;">
   <div class="sec-hdr" onclick="toggleHealthLog()" style="cursor:pointer;user-select:none;" title="Click to expand / collapse">
-    <div class="sec-title">◈ HEALTH LOG — A1C · GLUCOSE · MEDICATIONS <span id="hl-toggle-icon" style="color:var(--blue-b);margin-left:6px;">▶</span></div>
+    <div class="sec-title"><span data-i18n="health_log_title">◈ HEALTH LOG — A1C · GLUCOSE · MEDICATIONS</span> <span id="hl-toggle-icon" style="color:var(--blue-b);margin-left:6px;">▶</span></div>
     <div style="font-family:var(--fd);font-size:8px;color:var(--tx-d);" id="hl-summary-line">Click to expand</div>
   </div>
   <div id="hl-body" style="display:none;margin-top:8px;">
@@ -343,63 +603,71 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
 <!-- MISSION TIMELINE -->
 <div class="tl-panel" style="background:var(--panel);border:1px solid var(--brd);border-radius:6px;padding:10px 12px;margin-bottom:8px;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-    <div class="sec-title">◈ MISSION TIMELINE — PLANNED vs ACTUAL PACE</div>
+    <div class="sec-title"><span data-i18n="mission_tl_title">◈ MISSION TIMELINE — PLANNED vs ACTUAL PACE</span></div>
     <div id="tl-status" style="font-family:var(--fd);font-size:9px;font-weight:bold;"></div>
   </div>
   <svg id="tl-svg" width="100%" height="145" preserveAspectRatio="none" style="display:block;overflow:visible;"></svg>
 </div>
 
-<!-- QUICK LOG FLIGHT -->
-<div class="ql">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-    <div class="ql-title" id="ql-title" style="margin-bottom:0;">⚡ QUICK LOG FLIGHT</div>
-    <button class="btn-cancel-edit" onclick="cancelEdit()">✕ CANCEL</button>
+<!-- QUICK LOG FLIGHT (collapsible) -->
+<div class="ql" id="ql-panel">
+  <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;" onclick="toggleFlightLog()" id="ql-header">
+    <div class="ql-title" id="ql-title" style="margin-bottom:0;cursor:pointer;user-select:none;">
+      <i class="fa-solid fa-bolt" style="margin-right:5px;"></i><span data-i18n="ql_title">QUICK LOG FLIGHT</span>
+      <span id="ql-toggle-icon" style="color:var(--blue-b);margin-left:6px;font-family:var(--fd);font-weight:normal;">▶</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="font-family:var(--fd);font-size:8px;color:var(--tx-d);" id="ql-summary-line">Click to expand</div>
+      <button class="btn-cancel-edit" onclick="event.stopPropagation();cancelEdit()">✕ CANCEL</button>
+    </div>
   </div>
-  <div class="ql-form">
-    <label class="fl-label">
-      DATE
-      <input class="fl-input" id="f-date" type="date">
-    </label>
-    <label class="fl-label">
-      AIRCRAFT
-      <select class="fl-input" id="f-acft" onchange="onAcftChange()">
-        <option value="C172SP|N440FA|170">C172SP · N440FA — $170/hr</option>
-        <option value="AC-100|N4131X|175">AC-100 · N4131X — $175/hr</option>
-        <option value="PA-28-140|N4653R|145">PA-28-140 · N4653R — $145/hr</option>
-        <option value="C150|N10096|125">C150 · N10096 — $125/hr</option>
-        <option value="C172|N7989U|155">C172F/G · N7989U — $155/hr</option>
-        <option value="Arrow IV|N72MH|190">Arrow IV · N72MH — $190/hr</option>
-        <option value="Cherokee 6|N3894W|215">Cherokee 6 · N3894W — $215/hr</option>
-      </select>
-    </label>
-    <label class="fl-label">
-      DUAL HRS
-      <input class="fl-input" id="f-dual" type="number" min="0" step="0.1" placeholder="2.0" oninput="updateCostPreview()">
-    </label>
-    <label class="fl-label">
-      SOLO HRS
-      <input class="fl-input" id="f-solo" type="number" min="0" step="0.1" placeholder="0.0" oninput="updateCostPreview()">
-    </label>
-    <label class="fl-label">
-      NIGHT HRS
-      <input class="fl-input" id="f-night" type="number" min="0" step="0.1" placeholder="0.0">
-    </label>
-    <label class="fl-label">
-      LANDINGS
-      <input class="fl-input" id="f-ldg" type="number" min="0" placeholder="0">
-    </label>
-    <label class="fl-label">
-      NOTES / MANEUVERS
-      <input class="fl-input" id="f-notes" placeholder="G1000 fam · pattern · landings…">
-    </label>
-    <label class="fl-label">
-      &nbsp;
-      <button class="btn-log" id="log-btn" onclick="saveFlight()">LOG FLIGHT →</button>
-    </label>
-  </div>
-  <div class="ql-bottom">
-    <div class="cost-preview" id="cost-preview">Estimated cost: enter flight hours above</div>
-    <div style="font-family:var(--fd);font-size:8px;color:var(--tx-d);">CFI fee: $60/hr (auto on dual hours)</div>
+  <div id="ql-body" style="display:none;margin-top:10px;">
+    <div class="ql-form">
+      <label class="fl-label">
+        DATE
+        <input class="fl-input" id="f-date" type="date">
+      </label>
+      <label class="fl-label">
+        AIRCRAFT
+        <select class="fl-input" id="f-acft" onchange="onAcftChange()">
+          <option value="C172SP|N440FA|170">C172SP · N440FA — $170/hr</option>
+          <option value="AC-100|N4131X|175">AC-100 · N4131X — $175/hr</option>
+          <option value="PA-28-140|N4653R|145">PA-28-140 · N4653R — $145/hr</option>
+          <option value="C150|N10096|125">C150 · N10096 — $125/hr</option>
+          <option value="C172|N7989U|155">C172F/G · N7989U — $155/hr</option>
+          <option value="Arrow IV|N72MH|190">Arrow IV · N72MH — $190/hr</option>
+          <option value="Cherokee 6|N3894W|215">Cherokee 6 · N3894W — $215/hr</option>
+        </select>
+      </label>
+      <label class="fl-label">
+        DUAL HRS
+        <input class="fl-input" id="f-dual" type="number" min="0" step="0.1" placeholder="2.0" oninput="updateCostPreview()">
+      </label>
+      <label class="fl-label">
+        SOLO HRS
+        <input class="fl-input" id="f-solo" type="number" min="0" step="0.1" placeholder="0.0" oninput="updateCostPreview()">
+      </label>
+      <label class="fl-label">
+        NIGHT HRS
+        <input class="fl-input" id="f-night" type="number" min="0" step="0.1" placeholder="0.0">
+      </label>
+      <label class="fl-label">
+        LANDINGS
+        <input class="fl-input" id="f-ldg" type="number" min="0" placeholder="0">
+      </label>
+      <label class="fl-label">
+        NOTES / MANEUVERS
+        <input class="fl-input" id="f-notes" placeholder="G1000 fam · pattern · landings…">
+      </label>
+      <label class="fl-label">
+        &nbsp;
+        <button class="btn-log" id="log-btn" onclick="saveFlight()">LOG FLIGHT →</button>
+      </label>
+    </div>
+    <div class="ql-bottom">
+      <div class="cost-preview" id="cost-preview">Estimated cost: enter flight hours above</div>
+      <div style="font-family:var(--fd);font-size:8px;color:var(--tx-d);">CFI fee: $60/hr (auto on dual hours)</div>
+    </div>
   </div>
 </div>
 
@@ -502,7 +770,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
 
   <div class="faa-list">
     <div class="sec-hdr" style="margin-bottom:8px;">
-      <div class="sec-title">◈ FAA WRITTEN — 60Q</div>
+      <div class="sec-title"><span data-i18n="faa_title">◈ FAA WRITTEN — 60Q</span></div>
       <div style="font-family:var(--fd);font-size:8px;color:var(--tx-d);" id="faa-progress">0 / 12</div>
     </div>
     <div class="ei" data-key="faa_01" onclick="toggleEI(this)"><span class="en">01</span><span class="enm">Federal Aviation Regs</span><span class="eq">~8Q</span></div>
@@ -521,6 +789,34 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
 
 </div>
 
+<!-- NOTES & KUDOS -->
+<div class="notes-panel" id="notes-panel">
+  <div class="notes-hdr" onclick="toggleNotes()">
+    <i class="fa-solid fa-envelope-open-text" style="color:var(--amb);font-size:12px;"></i>
+    <span style="font-family:var(--fh);font-size:10px;font-weight:900;color:var(--tx-b);letter-spacing:3px;" data-i18n="notes_title">NOTES &amp; KUDOS</span>
+    <span id="notes-count" style="font-family:var(--fd);font-size:8px;color:var(--tx-d);"></span>
+    <span style="flex:1;"></span>
+    <div id="notes-score-preview" style="display:flex;gap:6px;align-items:center;"></div>
+    <span id="notes-toggle-icon" style="font-family:var(--fd);font-size:10px;color:var(--tx-d);margin-left:8px;">▶</span>
+  </div>
+  <div id="notes-latest-row" class="notes-latest-row" style="padding-bottom:10px;"></div>
+  <div id="notes-body" style="display:none;">
+    <hr class="notes-divider" style="margin-top:0;">
+    <div id="notes-score-row" class="notes-score-row"></div>
+    <div class="notes-see-all" onclick="toggleNotesAll()">
+      <span id="notes-see-all-icon">▶</span>
+      <span id="notes-see-all-text">SEE ALL MESSAGES</span>
+    </div>
+    <div id="notes-all-list" class="notes-all-list" style="display:none;margin-bottom:10px;"></div>
+    <div class="notes-add">
+      <div class="notes-add-lbl"><i class="fa-solid fa-paper-plane" style="margin-right:4px;color:var(--blue);"></i><span data-i18n="notes_send_lbl">SEND A MESSAGE OR KUDO TO AHMET</span></div>
+      <div class="kudo-row" id="kudo-picker"></div>
+      <textarea id="note-msg-input" class="note-input" rows="2" placeholder="Write a message, wish, kudo, or warning…"></textarea>
+      <button class="note-send-btn" id="note-send-btn" onclick="submitNote()"><i class="fa-solid fa-paper-plane" style="margin-right:5px;"></i>SEND</button>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <div class="ftr">
   <span class="ftr-t">▷ PPL MISSION CONTROL v3.1 · A-CENT AVIATION · KHEG · JAX FL</span>
@@ -531,44 +827,797 @@ html,body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:1
 </div><!-- /app -->
 <div class="toast" id="toast"></div>
 
-<script>
-// ── Login ─────────────────────────────────────
-const AUTH = { user: 'asoserhad', pass: 'itrusBi1506@' };
-const SESSION_KEY = 'ppl_auth';
+<!-- FAMILY TREE MODAL -->
+<div id="fam-modal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(4,8,14,0.97);overflow:auto;padding:20px 16px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <!-- Header -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--brd);">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <i class="fa-solid fa-sitemap" style="color:var(--grn);font-size:18px;filter:drop-shadow(0 0 8px rgba(0,200,100,0.5));"></i>
+        <div>
+          <div style="font-family:var(--fh);font-size:14px;color:var(--blue-b);letter-spacing:3px;">AİLE AĞACI</div>
+          <div style="font-family:var(--fd);font-size:8px;color:var(--slate);letter-spacing:2px;margin-top:2px;">ÖZGER AİLESİ · SOYAĞACI</div>
+        </div>
+      </div>
+      <button onclick="closeFamilyModal()" style="background:transparent;border:1px solid var(--muted);color:var(--tx-d);font-family:var(--fd);font-size:9px;padding:4px 14px;border-radius:6px;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--muted)';this.style.color='var(--tx-d)'">✕ KAPAT</button>
+    </div>
+    <!-- Soyağacı -->
+    <div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
 
-function doLogin() {
-  const u = document.getElementById('login-user').value.trim();
-  const p = document.getElementById('login-pass').value;
-  if (u === AUTH.user && p === AUTH.pass) {
-    localStorage.setItem(SESSION_KEY, '1');
-    document.getElementById('login-screen').classList.add('hidden');
-    document.getElementById('app').style.display = '';
-    bootApp();
+      <!-- GEN 1: Büyükanne & Büyükbabalar (her iki taraf) -->
+      <div class="ft-gen">
+        <div class="ft-gen-lbl">◈ BÜYÜKANNE & BÜYÜKBABALAR</div>
+        <div class="ft-gen-row" style="gap:32px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="font-family:var(--fd);font-size:6.5px;color:var(--slate);letter-spacing:2px;">BABA TARAFI</div>
+            <div class="ft-couple">
+              <div class="ftc"><div class="ftc-box m">
+                <div class="ftc-icon"><i class="fa-solid fa-user"></i></div>
+                <div class="ftc-name">Ahmet Özger</div>
+                <div class="ftc-date">1938 — 1991</div>
+              </div></div>
+              <div class="ft-heart">♥</div>
+              <div class="ftc"><div class="ftc-box f">
+                <div class="ftc-icon"><i class="fa-solid fa-user"></i></div>
+                <div class="ftc-name">Gülsen Özger</div>
+                <div class="ftc-date">d. 1936</div>
+              </div></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="font-family:var(--fd);font-size:6.5px;color:var(--slate);letter-spacing:2px;">ANNE TARAFI</div>
+            <div class="ft-couple">
+              <div class="ftc"><div class="ftc-box m">
+                <div class="ftc-icon"><i class="fa-solid fa-user"></i></div>
+                <div class="ftc-name">Mehmet Dalmış</div>
+              </div></div>
+              <div class="ft-heart">♥</div>
+              <div class="ftc"><div class="ftc-box f">
+                <div class="ftc-icon"><i class="fa-solid fa-user"></i></div>
+                <div class="ftc-name">Cemile Dalmış</div>
+              </div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft-connector"><div class="ft-vline"></div></div>
+
+      <!-- GEN 2: Baba & Anne -->
+      <div class="ft-gen">
+        <div class="ft-gen-lbl">◈ BABA & ANNE</div>
+        <div class="ft-gen-row">
+          <div class="ft-couple">
+            <div class="ftc"><div class="ftc-box m">
+              <div class="ftc-icon"><i class="fa-solid fa-user" style="color:var(--blue-b);"></i></div>
+              <div class="ftc-name">Mustafa Özger</div>
+              <div class="ftc-date">d. 1960</div>
+              <div class="ftc-tag" style="background:rgba(0,77,38,0.3);color:var(--grn);">BABA</div>
+            </div></div>
+            <div class="ft-heart">♥</div>
+            <div class="ftc"><div class="ftc-box f">
+              <div class="ftc-icon"><i class="fa-solid fa-user" style="color:#f07ab0;"></i></div>
+              <div class="ftc-name">Şenel Dalmış</div>
+              <div class="ftc-date">d. 1963</div>
+              <div class="ftc-tag" style="background:rgba(110,10,65,0.35);color:#f07ab0;">ANNE</div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft-connector"><div class="ft-vline"></div></div>
+
+      <!-- GEN 3: Three family columns -->
+      <div class="ft-gen">
+        <div class="ft-gen-row" style="gap:20px;align-items:flex-start;">
+
+          <!-- Abdullah ailesi: Nagihan ♥ Abdullah → Nihan -->
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="display:flex;gap:6px;align-items:flex-end;">
+              <div class="ftc"><div class="ftc-box f">
+                <div class="ftc-icon"><i class="fa-solid fa-user"></i></div>
+                <div class="ftc-name">Nagihan</div>
+              </div></div>
+              <span style="align-self:center;color:var(--muted);font-size:13px;padding:0 2px;">♥</span>
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div style="font-family:var(--fd);font-size:6.5px;color:var(--slate);letter-spacing:1px;margin-bottom:6px;">KARDEŞİNİZ</div>
+                <div class="ftc"><div class="ftc-box m">
+                  <div class="ftc-icon"><i class="fa-solid fa-user" style="color:var(--blue-b);"></i></div>
+                  <div class="ftc-name">Abdullah Özger</div>
+                  <div class="ftc-tag" style="background:rgba(13,61,122,0.25);color:var(--slate);">KARDEŞ</div>
+                </div></div>
+              </div>
+            </div>
+            <div style="font-size:14px;color:var(--muted);line-height:1;margin:8px 0 2px;">♥</div>
+            <div style="width:1px;height:18px;background:linear-gradient(to bottom,var(--brd),rgba(26,45,74,0.1));"></div>
+            <div style="font-family:var(--fd);font-size:6px;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">ÇOCUKLARI</div>
+            <div class="ftc"><div class="ftc-box f" style="border-color:var(--brd);background:rgba(20,35,55,0.4);">
+              <div class="ftc-icon"><i class="fa-solid fa-child-reaching" style="color:var(--slate);"></i></div>
+              <div class="ftc-name">Nihan Özger</div>
+            </div></div>
+          </div>
+
+          <!-- Ahmet ailesi: AhmetSerhad ♥ Seyda → Meva, Bebiş -->
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="display:flex;gap:6px;align-items:flex-end;">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div style="font-family:var(--fd);font-size:6.5px;color:var(--grn);letter-spacing:1px;margin-bottom:6px;">SİZ ✈</div>
+                <div class="ftc"><div class="ftc-box m you" onclick="openPilotPip()">
+                  <div class="ftc-icon"><i class="fa-solid fa-plane-up" style="color:var(--grn);"></i></div>
+                  <div class="ftc-name">AhmetSerhad Özger</div>
+                  <div class="ftc-date">d. 1986</div>
+                  <div class="ftc-tag" style="background:rgba(0,77,38,0.5);color:var(--grn);font-weight:700;">PPL ADAYI ✈</div>
+                </div></div>
+              </div>
+              <span style="align-self:center;color:#f07ab0;font-size:13px;filter:drop-shadow(0 0 4px rgba(240,122,176,0.6));">♥</span>
+              <div class="ftc"><div class="ftc-box f you" style="border-color:#f07ab0;border-width:2px;box-shadow:0 0 16px rgba(240,122,176,0.12);" onclick="openSeydaPip()">
+                <div class="ftc-icon"><i class="fa-solid fa-user" style="color:#f07ab0;"></i></div>
+                <div class="ftc-name">Seyda Özger</div>
+                <div class="ftc-date">d. 1992</div>
+                <div class="ftc-tag" style="background:rgba(110,10,65,0.4);color:#f07ab0;">EŞİNİZ</div>
+              </div></div>
+            </div>
+            <div style="font-size:18px;color:#f07ab0;line-height:1;margin:8px 0 2px;filter:drop-shadow(0 0 6px rgba(240,122,176,0.5));">♥</div>
+            <div style="width:2px;height:20px;background:linear-gradient(to bottom,#f07ab0,var(--grn-d));"></div>
+            <div style="font-family:var(--fd);font-size:6px;color:var(--grn-d);letter-spacing:1px;margin-bottom:4px;">ÇOCUKLARINIZ</div>
+            <div style="display:flex;gap:8px;justify-content:center;">
+              <div class="ftc"><div class="ftc-box f you" style="border-color:var(--blue-b);border-width:2px;background:rgba(13,61,122,0.3);box-shadow:0 0 18px rgba(77,163,255,0.15);" onclick="openMevaPip()">
+                <div class="ftc-icon"><i class="fa-solid fa-child-reaching" style="color:var(--blue-b);"></i></div>
+                <div class="ftc-name">Meva Nur Özger</div>
+                <div class="ftc-date">d. 2022</div>
+                <div class="ftc-tag" style="background:rgba(13,61,122,0.4);color:var(--blue-b);">KIZINIZ 💙</div>
+              </div></div>
+              <div class="ftc"><div class="ftc-box coming">
+                <div class="ftc-icon"><i class="fa-solid fa-baby" style="color:var(--ora);"></i></div>
+                <div class="ftc-name">Bebiş Kardeş</div>
+                <div class="ftc-date">Eylül 2026</div>
+                <div class="ftc-tag" style="background:rgba(100,55,0,0.5);color:var(--ora);">YOLDA ✨</div>
+              </div></div>
+            </div>
+          </div>
+
+          <!-- Sueda ailesi: Sueda ♥ Hakan → Serhan -->
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="display:flex;gap:6px;align-items:flex-end;">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div style="font-family:var(--fd);font-size:6.5px;color:var(--slate);letter-spacing:1px;margin-bottom:6px;">KIZ KARDEŞİNİZ</div>
+                <div class="ftc"><div class="ftc-box f" style="border-color:#f07ab0;">
+                  <div class="ftc-icon"><i class="fa-solid fa-user" style="color:#f07ab0;"></i></div>
+                  <div class="ftc-name">Sueda Kocyigit</div>
+                  <div class="ftc-date">d. 1995</div>
+                  <div class="ftc-tag" style="background:rgba(110,10,65,0.2);color:var(--slate);">KIZ KARDEŞ</div>
+                </div></div>
+              </div>
+              <span style="align-self:center;color:var(--muted);font-size:13px;padding:0 2px;">♥</span>
+              <div class="ftc"><div class="ftc-box m">
+                <div class="ftc-icon"><i class="fa-solid fa-user"></i></div>
+                <div class="ftc-name">Hakan Kocyigit</div>
+                <div class="ftc-date">d. 1993</div>
+                <div class="ftc-tag" style="background:rgba(13,61,122,0.2);color:var(--slate);">EŞİ</div>
+              </div></div>
+            </div>
+            <div style="font-size:14px;color:var(--muted);line-height:1;margin:8px 0 2px;">♥</div>
+            <div style="width:1px;height:18px;background:linear-gradient(to bottom,var(--brd),rgba(26,45,74,0.1));"></div>
+            <div style="font-family:var(--fd);font-size:6px;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">ÇOCUKLARI</div>
+            <div class="ftc"><div class="ftc-box m" style="border-color:var(--brd);background:rgba(20,35,55,0.4);">
+              <div class="ftc-icon"><i class="fa-solid fa-child" style="color:var(--slate);"></i></div>
+              <div class="ftc-name">Serhan Kocyigit</div>
+            </div></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Funny footer -->
+    <div style="margin-top:32px;padding:20px;border:1px dashed var(--brd);border-radius:8px;text-align:center;background:rgba(0,77,38,0.05);">
+      <div style="font-size:32px;margin-bottom:8px;">🪖</div>
+      <div style="font-family:var(--fh);font-size:10px;color:var(--grn);letter-spacing:3px;margin-bottom:6px;">PİLOT DURUMU</div>
+      <div style="font-family:var(--fd);font-size:9px;color:var(--tx-d);letter-spacing:1px;line-height:1.8;">
+        Bu ailede şu an hiç lisanslı pilot yok.<br>
+        <span style="color:var(--slate);">...ama biri uğraşıyor. Çok uğraşıyor.</span><br><br>
+        <span style="color:var(--ora);letter-spacing:2px;">✦ AhmetSerhad Özger · PPL Training · KHEG · 2026 ✦</span><br>
+        <span style="color:var(--tx-d);font-size:8px;">Meva ilk uçuşunu bekliyor. Bebiş dünyaya gelmeden önce olursa bonus puan.</span>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div style="display:flex;gap:20px;margin-top:20px;padding-top:12px;border-top:1px solid var(--brd);justify-content:center;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:6px;font-family:var(--fd);font-size:8px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;border-top:2px solid var(--blue-b);background:rgba(13,61,122,0.25);"></div>ERKEK</div>
+      <div style="display:flex;align-items:center;gap:6px;font-family:var(--fd);font-size:8px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;border-top:2px solid #f07ab0;background:rgba(110,10,65,0.2);"></div>KADIN</div>
+
+      <div style="display:flex;align-items:center;gap:6px;font-family:var(--fd);font-size:8px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;border-top:2px solid var(--grn);background:rgba(0,77,38,0.3);"></div>SİZ</div>
+      <div style="display:flex;align-items:center;gap:6px;font-family:var(--fd);font-size:8px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;border-top:2px solid var(--ora);background:rgba(100,55,0,0.3);"></div>YOLDA</div>
+    </div>
+    </div>
+
+    <!-- removed: Tüm Aile tab -->
+    <div style="display:none;">
+
+      <!-- SECTION: KÖKLER -->
+      <div class="ft-branch">
+        <div class="ft-branch-hdr">◈ KÖKLЕР — BÜYÜK BÜYÜKANNE & BÜYÜKBABA</div>
+        <div class="ft-frow">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Hasan</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box f z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">UmmuGülsüm</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">SofuMehmet</div></div></div>
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Bilal</div></div></div>
+          </div>
+        </div>
+        <div class="ft-frow" style="padding-left:24px;">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">SofuMehmet</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box f z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Rahime</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user" style="color:var(--blue);"></i></div><div class="ftc-name">Ahmet Özger</div><div class="ftc-date">1938—1991</div></div></div>
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">HasanTahsin Özger</div></div></div>
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Kadir</div></div></div>
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Ali</div></div></div>
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Fuat</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: BÜYÜKBABA KOLU -->
+      <div class="ft-branch">
+        <div class="ft-branch-hdr">◈ BÜYÜKBABA KOLU — AHMET† & GÜLSEN ÖZGERs</div>
+        <div class="ft-frow">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Ahmet Özger</div><div class="ftc-date">1938—1991</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user" style="color:#f07ab0;"></i></div><div class="ftc-name">Gülsen Özger</div><div class="ftc-date">d. 1936</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user" style="color:var(--grn);"></i></div><div class="ftc-name">Mustafa Özger</div><div class="ftc-date">d. 1960</div><div class="ftc-tag" style="background:rgba(0,77,38,0.3);color:var(--grn);">BABA</div></div></div>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Mesut Özger</div><div class="ftc-date">d. 1964</div></div></div>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Mehmet Özger</div><div class="ftc-date">d. 1972</div></div></div>
+          </div>
+        </div>
+        <!-- Amca Mesut -->
+        <div class="ft-frow" style="padding-left:24px;">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Mesut Özger</div><div class="ftc-tag" style="background:rgba(13,61,122,0.3);color:var(--blue);">AMCA</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Azime</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Hande</div></div></div>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Ayşenur</div></div></div>
+            <div class="ftcs"><div class="ftc-box f z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Nur</div></div></div>
+          </div>
+        </div>
+        <!-- Amca Mehmet -->
+        <div class="ft-frow" style="padding-left:24px;">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Mehmet Özger</div><div class="ftc-tag" style="background:rgba(13,61,122,0.3);color:var(--blue);">AMCA</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Asuman Saraçoğlu</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">ÖmerBera</div></div></div>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">ZeynepBeren</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: HAŞANTAHSIN KOLU -->
+      <div class="ft-branch">
+        <div class="ft-branch-hdr">◈ HAŞANTAHSİN ÖZGER† KOLU</div>
+        <div class="ft-frow">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">HasanTahsin Özger</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box f z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Nevzat</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Nezahat</div></div></div>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Nebahat Olcucu</div></div></div>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Mehmet Özger</div></div></div>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Fatih Özger</div></div></div>
+          </div>
+        </div>
+        <div class="ft-frow" style="padding-left:24px;">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Nezahat</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Yalçın</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Onur</div></div></div>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Ceren</div></div></div>
+          </div>
+        </div>
+        <div class="ft-frow" style="padding-left:24px;">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Nebahat Olcucu</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Ömer Olcucu</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Hamdican</div><div class="ftc-date">d. 1985</div></div></div>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Sena</div></div></div>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Ali</div></div></div>
+          </div>
+        </div>
+        <div class="ft-frow" style="padding-left:24px;">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Mehmet Özger</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Meral</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Bilgen</div></div></div>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Elif</div></div></div>
+          </div>
+        </div>
+        <div class="ft-frow" style="padding-left:24px;">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Fatih Özger</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Emel</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Melih</div></div></div>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Emre</div></div></div>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Eren</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: BÜYÜKANNENIN AİLESİ -->
+      <div class="ft-branch">
+        <div class="ft-branch-hdr">◈ BÜYÜKANNENIN AİLESİ — GÜLSEN DEMİRCAN TARAFI</div>
+        <div class="ft-frow">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box m z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Hüseyin</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box f z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Ayşe</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user" style="color:#f07ab0;"></i></div><div class="ftc-name">Gülsen Özger</div><div class="ftc-date">d. 1936</div><div class="ftc-tag" style="background:rgba(110,10,65,0.3);color:#f07ab0;">BÜYÜKANNE</div></div></div>
+            <div class="ftcs"><div class="ftc-box f z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Fatma Demircan</div></div></div>
+            <div class="ftcs"><div class="ftc-box f z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Şerife Demircan</div></div></div>
+          </div>
+        </div>
+        <div class="ft-frow" style="padding-left:24px;">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box f z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Fatma Demircan</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">İbrahim</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Seniha</div></div></div>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Sevinç</div></div></div>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Hanife</div></div></div>
+          </div>
+        </div>
+        <div class="ft-frow" style="padding-left:24px;">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box f z"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Şerife Demircan</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Fikret</div></div></div>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">MehmetEmin</div></div></div>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">HasanHüseyin</div></div></div>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Servet</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: KARDEŞLERİNİZ -->
+      <div class="ft-branch">
+        <div class="ft-branch-hdr">◈ KARDEŞLERİNİZ — MUSTAFA & ŞENEL'İN ÇOCUKLARI</div>
+        <div class="ft-frow">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Abdullah Özger</div><div class="ftc-tag" style="background:rgba(13,61,122,0.3);color:var(--blue);">AĞABEY</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Nagihan</div></div></div>
+          </div>
+          <span class="ft-arrow-r">→</span>
+          <div class="ft-frow-kids">
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Nihan</div></div></div>
+          </div>
+        </div>
+        <div class="ft-frow">
+          <div class="ft-frow-parents">
+            <div class="ftcs"><div class="ftc-box f"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Sueda Kocyigit</div><div class="ftc-date">d. 1995</div><div class="ftc-tag" style="background:rgba(110,10,65,0.3);color:#f07ab0;">KARDEŞİNİZ</div></div></div>
+            <span class="ft-heart" style="padding-top:14px;">♥</span>
+            <div class="ftcs"><div class="ftc-box m"><div class="ftc-icon"><i class="fa-solid fa-user"></i></div><div class="ftc-name">Hakan Kocyigit</div><div class="ftc-date">d. 1993</div></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- USER MANAGEMENT MODAL -->
+<div id="users-modal" class="hidden">
+  <div class="users-box">
+    <div class="users-box-hdr">
+      <span style="font-family:var(--fh);font-size:11px;font-weight:900;color:var(--blue-b);letter-spacing:3px;"><i class="fa-solid fa-users" style="margin-right:6px;"></i><span data-i18n="user_mgmt">USER MANAGEMENT</span></span>
+      <button onclick="closeUsersModal()" style="background:none;border:none;color:var(--tx-d);font-size:16px;cursor:pointer;">✕</button>
+    </div>
+    <div id="users-list" style="padding:4px 0;"></div>
+  </div>
+</div>
+
+<!-- PENDING USERS MODAL -->
+<div id="pending-modal" class="hidden">
+  <div class="pend-box">
+    <div class="pend-hdr">
+      <span style="font-family:var(--fh);font-size:11px;font-weight:900;color:var(--amb);letter-spacing:3px;"><i class="fa-solid fa-user-clock" style="margin-right:6px;"></i><span data-i18n="pending_approvals">PENDING APPROVALS</span></span>
+      <button onclick="closePendingModal()" style="background:none;border:none;color:var(--tx-d);font-size:16px;cursor:pointer;">✕</button>
+    </div>
+    <div id="pending-list" style="padding:8px 0;"></div>
+  </div>
+</div>
+
+<!-- FAMILY ANIMATION OVERLAY -->
+<div id="fam-anim-overlay" class="hidden" onclick="closeFamAnim()">
+  <div id="fam-anim-title" class="fam-title"></div>
+  <div id="fam-anim-scene" class="fam-scene"></div>
+  <div class="fam-hint">✦ TAP ANYWHERE TO CLOSE ✦</div>
+</div>
+
+<script>
+// ── Language ──────────────────────────────────
+let currentLang = localStorage.getItem('ppl_lang') || 'en';
+
+const TRANS = {
+  en: {
+    app_title:'PPL MISSION CONTROL', family:'FAMILY',
+    active_training:'ACTIVE TRAINING', hrs_wk:'4 HRS/WK TARGET',
+    viewing_as_guest:'VIEWING AS GUEST', users:'USERS', pending:'PENDING', logout:'LOGOUT',
+    kpi_total_hours:'TOTAL HOURS', kpi_dual_solo:'DUAL / SOLO',
+    kpi_total_spent:'TOTAL SPENT', kpi_checkride:'CHECKRIDE',
+    health_monitor:'HEALTH MONITOR',
+    health_tl_title:'◈ HEALTH TIMELINE — DIABETES MANAGEMENT SCORE / 100',
+    health_log_title:'◈ HEALTH LOG — A1C · GLUCOSE · MEDICATIONS',
+    mission_tl_title:'◈ MISSION TIMELINE — PLANNED vs ACTUAL PACE',
+    ql_title:'QUICK LOG FLIGHT', faa_title:'◈ FAA WRITTEN — 60Q',
+    mevanur_text:'Your biggest fan is waiting for her first flight with daddy. Every hour you log is one hour closer.',
+    baby_text:'Arriving September 2026 — earn your wings before she opens her eyes to the world for the first time.',
+    mission_text:'PPL by Nov 15, 2026. Fly for Meva and the new baby. Nothing stops a father on a mission.',
+    tile_baby:'BABY GIRL', tile_mission:'THE MISSION',
+    mevanur_footer:'MEVA WILL FLY WITH DADDY', mission_footer:'YOU WILL DO THIS 💪',
+    baby_footer:'DAYS UNTIL SHE ARRIVES', baby_arrived:"SHE'S HERE! WELCOME!",
+    notes_title:'NOTES & KUDOS', notes_send_lbl:'SEND A MESSAGE OR KUDO TO AHMET',
+    notes_see_all:'SEE ALL MESSAGES', notes_hide:'HIDE MESSAGES', send:'SEND',
+    tab_login:'LOGIN', tab_register:'REGISTER',
+    username:'USERNAME', password:'PASSWORD', confirm_password:'CONFIRM PASSWORD',
+    pick_avatar:'PICK YOUR AVATAR', login_btn:'LOGIN →', request_access:'REQUEST ACCESS →',
+    user_mgmt:'USER MANAGEMENT', pending_approvals:'PENDING APPROVALS',
+    click_expand:'Click to expand', save:'SAVE', edit:'EDIT', cancel:'CANCEL',
+    of_dual_solo:"of 20 dual · 10 solo req'd", medical_target:'Medical target',
+    days_until:'days · Nov 15 2026',
+  },
+  tr: {
+    app_title:'PİLOT SERTİFİKASI GÖREV KONTROL', family:'AİLE',
+    active_training:'AKTİF EĞİTİM', hrs_wk:'HAFTADA 4 SAAT',
+    viewing_as_guest:'MİSAFİR MODUNDA', users:'KULLANICILAR', pending:'BEKLEYEN', logout:'ÇIKIŞ',
+    kpi_total_hours:'TOPLAM SAAT', kpi_dual_solo:'ÇİFT / SOLO',
+    kpi_total_spent:'TOPLAM HARCAMA', kpi_checkride:'SINAV UÇUŞU',
+    health_monitor:'SAĞLIK MONİTÖRÜ',
+    health_tl_title:'◈ SAĞLIK TAKİBİ — DİYABET YÖNETİM SKORU / 100',
+    health_log_title:'◈ SAĞLIK KAYDI — A1C · GLIKOZ · İLAÇLAR',
+    mission_tl_title:'◈ GÖREV TAKİBİ — PLANLANAN vs GERÇEK',
+    ql_title:'UÇUŞ KAYDI', faa_title:'◈ FAA YAZILI SINAV — 60 SORU',
+    mevanur_text:'En büyük hayranın sana ilk uçuşta eşlik etmek için bekliyor. Her kaydettiğin saat, bir adım daha yakın.',
+    baby_text:'Eylül 2026\'da geliyor — o gözlerini açmadan önce kanatlarını kazan.',
+    mission_text:'PPL Kasım 2026. Meva ve yeni bebek için uç. Görevdeki bir baba durmaz.',
+    tile_baby:'BEBİŞ KARDEŞ', tile_mission:'HEDEF',
+    mevanur_footer:'MEVA BABASIYLA UÇACAK', mission_footer:'BUNU BAŞARACAKSIN 💪',
+    baby_footer:'GÜN KALDI', baby_arrived:'O BURADA! HOŞ GELDİN!',
+    notes_title:'NOTLAR & KUDOLAR', notes_send_lbl:'AHMET\'E MESAJ VEYA KUDO GÖNDER',
+    notes_see_all:'TÜM MESAJLARI GÖR', notes_hide:'MESAJLARI GİZLE', send:'GÖNDER',
+    tab_login:'GİRİŞ', tab_register:'KAYIT',
+    username:'KULLANICI ADI', password:'ŞİFRE', confirm_password:'ŞİFRE TEKRAR',
+    pick_avatar:'AVATAR SEÇ', login_btn:'GİRİŞ →', request_access:'ERİŞİM İSTE →',
+    user_mgmt:'KULLANICI YÖNETİMİ', pending_approvals:'ONAY BEKLEYENLEr',
+    click_expand:'Açmak için tıkla', save:'KAYDET', edit:'DÜZENLE', cancel:'İPTAL',
+    of_dual_solo:'20 çift · 10 solo gerekli', medical_target:'Tıbbi hedef',
+    days_until:'gün · 15 Kas 2026',
+  }
+};
+
+function applyLang() {
+  const t = TRANS[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (t[k] !== undefined) el.textContent = t[k];
+  });
+  // Placeholders
+  const noteInput = document.getElementById('note-msg-input');
+  if (noteInput) noteInput.placeholder = currentLang === 'tr'
+    ? 'Ahmet\'e bir mesaj, dilek, kudo veya uyarı yaz…'
+    : 'Write a message, wish, kudo, or warning…';
+  const regUser = document.getElementById('reg-user');
+  if (regUser) regUser.placeholder = currentLang === 'tr' ? 'en az 3 karakter' : 'minimum 3 characters';
+  // Lang button
+  const enEl = document.getElementById('lang-en');
+  const trEl = document.getElementById('lang-tr');
+  if (enEl) {
+    enEl.style.background = currentLang === 'en' ? 'rgba(255,255,255,0.18)' : 'transparent';
+    enEl.style.color = currentLang === 'en' ? '#fff' : 'rgba(255,255,255,0.3)';
+    enEl.style.fontWeight = currentLang === 'en' ? '700' : '400';
+  }
+  if (trEl) {
+    trEl.style.background = currentLang === 'tr' ? 'rgba(255,255,255,0.18)' : 'transparent';
+    trEl.style.color = currentLang === 'tr' ? '#fff' : 'rgba(255,255,255,0.3)';
+    trEl.style.fontWeight = currentLang === 'tr' ? '700' : '400';
+  }
+  // See-all text
+  const sat = document.getElementById('notes-see-all-text');
+  if (sat) sat.textContent = notesAllExpanded
+    ? t.notes_hide : `${t.notes_see_all} (${allNotes.length})`;
+  // KPI sub texts
+  const dualSub = document.querySelector('#kpi-dual + .kpi-sub');
+  if (dualSub) dualSub.textContent = t.of_dual_solo;
+  // Collapse hints
+  const hlSum = document.getElementById('hl-summary-line');
+  if (hlSum && hlSum.textContent.includes('expand')) hlSum.textContent = t.click_expand;
+  const qlSum = document.getElementById('ql-summary-line');
+  if (qlSum && qlSum.textContent === 'Click to expand') qlSum.textContent = t.click_expand;
+  // Re-render dynamic countdowns
+  if (typeof updateCountdowns === 'function') updateCountdowns();
+  // Fix Turkish chars where Orbitron lacks glyphs (İ, Ş, Ö, etc.)
+  const tileBabyEl = document.querySelector('[data-i18n="tile_baby"]');
+  if (tileBabyEl) tileBabyEl.style.fontFamily = currentLang === 'tr' ? "'Segoe UI','Arial',sans-serif" : 'var(--fh)';
+  const appTitleEl = document.querySelector('[data-i18n="app_title"]');
+  if (appTitleEl) appTitleEl.style.fontFamily = currentLang === 'tr' ? "'Segoe UI','Arial',sans-serif" : 'var(--fh)';
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('ppl_lang', lang);
+  applyLang();
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'tr' : 'en';
+  localStorage.setItem('ppl_lang', currentLang);
+  applyLang();
+}
+
+// ── Auth ──────────────────────────────────────
+const SESSION_KEY = 'ppl_auth';
+let currentRole = 'guest';
+let currentAvatar = '👤';
+let currentUser = '';
+
+const AVATARS = ['👨','👩','👦','👧','👴','👵','👶','🧑','👨‍✈️','👩‍✈️','🧑‍💼','🧑‍🎓','⭐','🏅','🎉','🌟'];
+let selectedAvatar = '👨';
+
+function applyRole() {
+  const app = document.getElementById('app');
+  const guestBadge = document.getElementById('guest-badge');
+  const pendBadge  = document.getElementById('pending-badge');
+  const usersBtn = document.getElementById('users-btn');
+  if (currentRole === 'guest') {
+    app.classList.add('guest-mode');
+    if (guestBadge) guestBadge.style.display = 'inline';
+    if (pendBadge)  pendBadge.style.display   = 'none';
+    if (usersBtn)   usersBtn.style.display    = 'none';
+    const famBtnG = document.getElementById('family-btn');
+    if (famBtnG) famBtnG.style.display = 'inline';
   } else {
-    document.getElementById('login-err').textContent = '⚠ Invalid username or password';
-    document.getElementById('login-pass').value = '';
-    document.getElementById('login-pass').focus();
+    app.classList.remove('guest-mode');
+    if (guestBadge) guestBadge.style.display = 'none';
+    if (pendBadge)  pendBadge.style.display   = 'none';
+    if (usersBtn)   usersBtn.style.display    = currentRole === 'admin' ? 'inline' : 'none';
+    const famBtn = document.getElementById('family-btn');
+    if (famBtn) famBtn.style.display = 'inline';
+  }
+}
+
+function switchLoginTab(tab) {
+  document.getElementById('login-form').style.display    = tab === 'login'    ? '' : 'none';
+  document.getElementById('register-form').style.display = tab === 'register' ? '' : 'none';
+  document.getElementById('tab-login').classList.toggle('active',    tab === 'login');
+  document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+  document.getElementById('login-err').textContent = '';
+  if (tab === 'register') initAvatarGrid();
+}
+
+function initAvatarGrid() {
+  const grid = document.getElementById('avatar-grid');
+  if (!grid) return;
+  grid.innerHTML = AVATARS.map(av =>
+    `<button class="av-btn${av===selectedAvatar?' av-sel':''}" onclick="selectAv('${av}')" title="${av}">${av}</button>`
+  ).join('');
+}
+
+function selectAv(av) { selectedAvatar = av; initAvatarGrid(); }
+
+async function doLogin() {
+  const u = document.getElementById('login-user').value.trim().toLowerCase();
+  const p = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-err');
+  const btn   = document.getElementById('login-btn');
+  errEl.textContent = '';
+  btn.textContent = 'CHECKING…'; btn.disabled = true;
+  try {
+    const authDb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { data: result, error } = await authDb.rpc('check_app_login', { p_user: u, p_pass: p });
+    if (error || !result) {
+      errEl.textContent = '⚠ Invalid username or password';
+      document.getElementById('login-pass').value = '';
+      document.getElementById('login-pass').focus();
+    } else if (result.status === 'pending') {
+      errEl.style.color = 'var(--amb)';
+      errEl.textContent = '⏳ Account awaiting admin approval';
+    } else {
+      currentRole   = result.role;
+      currentAvatar = result.avatar || '👤';
+      currentUser   = u;
+      localStorage.setItem(SESSION_KEY, JSON.stringify({ user: u, role: result.role, avatar: result.avatar || '👤' }));
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('app').style.display = '';
+      applyRole();
+      bootApp();
+    }
+  } catch(e) {
+    errEl.textContent = '⚠ Network error — try again';
+  } finally {
+    btn.textContent = 'LOGIN →'; btn.disabled = false;
+  }
+}
+
+async function doRegister() {
+  const u  = (document.getElementById('reg-user').value  || '').trim().toLowerCase();
+  const p  =  document.getElementById('reg-pass').value  || '';
+  const p2 =  document.getElementById('reg-pass2').value || '';
+  const errEl = document.getElementById('login-err');
+  errEl.textContent = ''; errEl.style.color = 'var(--red)';
+  if (u.length < 3)  { errEl.textContent = '⚠ Username must be at least 3 characters'; return; }
+  if (p.length < 4)  { errEl.textContent = '⚠ Password must be at least 4 characters'; return; }
+  if (p !== p2)      { errEl.textContent = '⚠ Passwords do not match'; return; }
+  const btn = document.getElementById('reg-btn');
+  btn.textContent = 'SENDING…'; btn.disabled = true;
+  try {
+    const authDb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { data: res, error } = await authDb.rpc('register_app_user', { p_user: u, p_pass: p, p_avatar: selectedAvatar });
+    if (error || !res) {
+      errEl.textContent = '⚠ Registration failed — try again';
+    } else if (res === 'taken') {
+      errEl.textContent = '⚠ Username already taken';
+    } else if (res === 'invalid') {
+      errEl.textContent = '⚠ Invalid username';
+    } else {
+      errEl.style.color = 'var(--grn)';
+      errEl.textContent = '✓ Request sent! Waiting for admin approval.';
+      document.getElementById('reg-user').value = '';
+      document.getElementById('reg-pass').value = '';
+      document.getElementById('reg-pass2').value = '';
+    }
+  } catch(e) {
+    errEl.textContent = '⚠ Network error — try again';
+  } finally {
+    btn.textContent = 'REQUEST ACCESS →'; btn.disabled = false;
   }
 }
 
 function checkAuth() {
-  if (localStorage.getItem(SESSION_KEY) === '1') {
+  const stored = localStorage.getItem(SESSION_KEY);
+  if (stored) {
+    try {
+      const s = JSON.parse(stored);
+      currentRole   = s.role   || 'guest';
+      currentAvatar = s.avatar || '👤';
+      currentUser   = s.user   || '';
+    } catch(e) { currentRole = 'guest'; }
     document.getElementById('login-screen').classList.add('hidden');
     document.getElementById('app').style.display = '';
+    applyRole();
     return true;
   }
-  document.getElementById('login-user').focus();
+  setTimeout(() => { const el = document.getElementById('login-user'); if(el) el.focus(); }, 100);
   return false;
 }
 
 function doLogout() {
   localStorage.removeItem(SESSION_KEY);
+  currentRole = 'guest'; currentAvatar = '👤'; currentUser = '';
   document.getElementById('app').style.display = 'none';
+  document.getElementById('app').classList.remove('guest-mode');
   document.getElementById('login-screen').classList.remove('hidden');
   document.getElementById('login-user').value = '';
   document.getElementById('login-pass').value = '';
   document.getElementById('login-err').textContent = '';
-  document.getElementById('login-user').focus();
+  document.getElementById('login-err').style.color = 'var(--red)';
+  switchLoginTab('login');
+  setTimeout(() => { const el = document.getElementById('login-user'); if(el) el.focus(); }, 100);
+}
+
+// ── Pending user management ────────────────────
+async function loadPendingUsers() {
+  if (currentRole !== 'admin' || !db) return;
+  const { data } = await db.rpc('get_pending_users', { p_admin: currentUser });
+  const list = data || [];
+  const badge = document.getElementById('pending-badge');
+  const cnt   = document.getElementById('pending-count');
+  if (badge && cnt) {
+    cnt.textContent = list.length;
+    badge.style.display = list.length > 0 ? 'inline' : 'none';
+  }
+  // also refresh list if modal is open
+  if (!document.getElementById('pending-modal').classList.contains('hidden')) renderPendingList(list);
+}
+
+function renderPendingList(list) {
+  const el = document.getElementById('pending-list');
+  if (!el) return;
+  if (!list.length) {
+    el.innerHTML = `<div style="padding:20px;text-align:center;font-family:var(--fd);font-size:9px;color:var(--muted);">No pending requests</div>`;
+    return;
+  }
+  el.innerHTML = list.map(u => {
+    const name = u.u_name || u.username || '?';
+    const av   = u.u_avatar || u.avatar || '👤';
+    return `<div class="pend-row" id="pend-row-${name}">
+      <div class="pend-av">${av}</div>
+      <div class="pend-info">
+        <div class="pend-name">${escHtml(name)}</div>
+      </div>
+      <div class="pend-btns">
+        <button class="pend-approve" onclick="handlePendingUser('${name}','approve')"><i class="fa-solid fa-check" style="margin-right:3px;"></i>APPROVE</button>
+        <button class="pend-reject"  onclick="handlePendingUser('${name}','reject')"><i class="fa-solid fa-xmark" style="margin-right:3px;"></i>REJECT</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function openPendingModal() {
+  document.getElementById('pending-modal').classList.remove('hidden');
+  if (!db) return;
+  const { data } = await db.rpc('get_pending_users', { p_admin: currentUser });
+  renderPendingList(data || []);
+}
+
+function closePendingModal() {
+  document.getElementById('pending-modal').classList.add('hidden');
+}
+
+async function handlePendingUser(username, action) {
+  if (!db) return;
+  const row = document.getElementById(`pend-row-${username}`);
+  if (row) {
+    const btns = row.querySelector('.pend-btns');
+    if (btns) btns.innerHTML = '<span style="font-family:var(--fd);font-size:9px;letter-spacing:1px;opacity:.5;">processing…</span>';
+  }
+  await db.rpc('admin_update_user', { p_admin: currentUser, p_username: username, p_action: action });
+  if (row) {
+    const isApprove = action === 'approve';
+    const color = isApprove ? 'var(--grn)' : 'var(--red)';
+    const label = isApprove ? '✓ APPROVED' : '✗ REJECTED';
+    const btns = row.querySelector('.pend-btns');
+    if (btns) btns.innerHTML = `<span style="font-family:var(--fh);font-size:10px;font-weight:900;color:${color};letter-spacing:2px;">${label}</span>`;
+    row.style.opacity = '0.5';
+  }
+  loadPendingUsers();
 }
 
 // ═══════════════════════════════════════════════
@@ -588,6 +1637,7 @@ const ACFT_RATES = {
 let db, flights = [];
 
 document.addEventListener('DOMContentLoaded', () => {
+  applyLang();
   if (checkAuth()) bootApp();
 });
 
@@ -596,9 +1646,12 @@ async function bootApp() {
   document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
   updateCountdowns();
   await Promise.all([loadFlights(), loadProgress(), loadHealthLogs()]);
-  renderChart();
   renderTimeline();
   renderHealthTimeline();
+  initKudoPicker();
+  loadNotes();
+  if (currentRole === 'admin') loadPendingUsers();
+  applyLang();
 }
 
 // ── Flight CRUD ───────────────────────────────
@@ -608,7 +1661,6 @@ async function loadFlights() {
   flights = data || [];
   renderFlights();
   updateDash();
-  renderChart();
   renderTimeline();
 }
 
@@ -641,9 +1693,9 @@ function renderFlights() {
       <td>${night > 0 ? night.toFixed(1) : '—'}</td>
       <td>${ldg > 0 ? ldg : '—'}</td>
       <td style="color:var(--grn);font-weight:bold;">${total.toFixed(1)}</td>
-      <td style="color:var(--amb);">$${acftCost}</td>
-      <td style="color:var(--amb);">$${cfiCost}</td>
-      <td style="color:var(--ora-b);font-weight:bold;">$${tripCost}</td>
+      <td class="fl-cost" style="color:var(--amb);">$${acftCost}</td>
+      <td class="fl-cost" style="color:var(--amb);">$${cfiCost}</td>
+      <td class="fl-cost" style="color:var(--ora-b);font-weight:bold;">$${tripCost}</td>
       <td style="font-size:9px;color:var(--slate);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${f.notes || ''}</td>
       <td><span class="badge bd-ok">DONE</span></td>
       <td style="white-space:nowrap;">
@@ -676,7 +1728,8 @@ function editFlight(id) {
     if (sel.options[i].value.startsWith(f.aircraft + '|')) { sel.selectedIndex = i; break; }
   }
 
-  document.getElementById('ql-title').textContent = `✎ EDITING — FLT #${String(f.flt_number).padStart(3,'0')}`;
+  openFlightLog();
+  document.getElementById('ql-title').innerHTML = `<i class="fa-solid fa-pen" style="margin-right:5px;"></i>EDITING — FLT #${String(f.flt_number).padStart(3,'0')} <span id="ql-toggle-icon" style="display:none;"></span>`;
   document.getElementById('log-btn').textContent = 'UPDATE →';
   document.querySelector('.ql').classList.add('editing');
   updateCostPreview();
@@ -685,7 +1738,7 @@ function editFlight(id) {
 
 function cancelEdit() {
   currentEditId = null;
-  document.getElementById('ql-title').textContent = '⚡ QUICK LOG FLIGHT';
+  document.getElementById('ql-title').innerHTML = '<i class="fa-solid fa-bolt" style="margin-right:5px;"></i>QUICK LOG FLIGHT <span id="ql-toggle-icon" style="color:var(--blue-b);margin-left:6px;font-family:var(--fd);font-weight:normal;">▼</span>';
   document.getElementById('log-btn').textContent = 'LOG FLIGHT →';
   document.querySelector('.ql').classList.remove('editing');
   document.getElementById('f-dual').value  = '';
@@ -789,6 +1842,12 @@ function updateDash() {
   document.getElementById('kpi-cost-sub').textContent = `Acft $${acftCost.toLocaleString()} + CFI $${cfiCost.toLocaleString()}`;
   document.getElementById('pb-cost').style.width = Math.min(100, grand/BUDGET_ESTIMATE*100) + '%';
 
+  // Quick log summary line
+  const qlSum = document.getElementById('ql-summary-line');
+  if (qlSum) qlSum.textContent = flights.length
+    ? `${flights.length} flights · ${total.toFixed(1)} hrs logged · Click to expand`
+    : 'Click to expand';
+
   // Footer
   document.getElementById('f-total').textContent    = total.toFixed(1) + ' hrs';
   document.getElementById('f-dual-tot').textContent = dual.toFixed(1) + ' hrs';
@@ -861,7 +1920,7 @@ function renderChart() {
   svg.innerHTML = grid + ticks + targetLine + nowLine + actualPath + dots;
 }
 
-window.addEventListener('resize', () => { setTimeout(renderChart, 100); setTimeout(renderTimeline, 120); setTimeout(renderHealthTimeline, 140); });
+window.addEventListener('resize', () => { setTimeout(renderTimeline, 100); setTimeout(renderHealthTimeline, 120); });
 
 // ── Timeline ──────────────────────────────────
 function renderTimeline() {
@@ -1000,6 +2059,26 @@ function renderTimeline() {
   svg.innerHTML = grid + mLines + plannedLine + actualSegs + dots + nowLine + markers;
 }
 
+// ── Flight log toggle ─────────────────────────
+function toggleFlightLog() {
+  if (currentEditId) return; // keep open when editing
+  const body = document.getElementById('ql-body');
+  const icon = document.getElementById('ql-toggle-icon');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  icon.textContent = isOpen ? '▶' : '▼';
+  if (!isOpen) {
+    document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+  }
+}
+
+function openFlightLog() {
+  const body = document.getElementById('ql-body');
+  const icon = document.getElementById('ql-toggle-icon');
+  body.style.display = 'block';
+  icon.textContent = '▼';
+}
+
 // ── Cost Preview ──────────────────────────────
 function onAcftChange() { updateCostPreview(); }
 
@@ -1068,6 +2147,15 @@ function updateCountdowns() {
   const med  = Math.max(0, Math.ceil((new Date('2026-08-01') - now) / 86400000));
   document.getElementById('kpi-days').textContent     = days;
   document.getElementById('kpi-med-days').textContent = med + ' days (Aug 01)';
+
+  const babyEl = document.getElementById('baby-countdown');
+  if (babyEl) {
+    const babyDays = Math.max(0, Math.ceil((new Date('2026-09-12') - now) / 86400000));
+    const t = TRANS[currentLang];
+    babyEl.innerHTML = babyDays > 0
+      ? `<i class="fa-solid fa-heart" style="margin-right:4px;"></i>${babyDays} ${t.baby_footer}`
+      : `<i class="fa-solid fa-star" style="margin-right:4px;"></i>${t.baby_arrived}`;
+  }
 }
 
 // ── Health Log ────────────────────────────────
@@ -1086,6 +2174,64 @@ async function loadHealthLogs() {
   renderHealthEntries();
   updateHlSummaryLine();
   renderHealthTimeline();
+  renderHealthMonitor();
+}
+
+function renderHealthMonitor() {
+  const el = document.getElementById('health-monitor-content');
+  if (!el) return;
+
+  if (!healthLogs.length) {
+    el.innerHTML = '<div style="font-family:var(--fd);font-size:8px;color:var(--muted);">No health data — add first entry</div>';
+    return;
+  }
+
+  let lastA1c = null;
+  const scored = [...healthLogs].sort((a,b) => new Date(a.date)-new Date(b.date)).map(log => {
+    const s = calcHealthScore(log, lastA1c);
+    if (log.a1c) lastA1c = log.a1c;
+    return { log, score: s };
+  });
+
+  const latest = scored[scored.length - 1];
+  const prev   = scored[scored.length - 2];
+  const diff   = prev ? latest.score - prev.score : 0;
+  const col    = getHlColor(latest.score);
+  const trendTxt = diff > 0 ? `<span style="color:var(--grn);">▲ +${diff}pts</span>`
+                 : diff < 0 ? `<span style="color:var(--red);">▼ ${diff}pts</span>`
+                 : `<span style="color:var(--tx-d);">— stable</span>`;
+
+  const l = latest.log;
+  const hasDQ  = l.med_insulin_nphr || l.med_lantus;
+  const hasSI  = l.med_mounjaro || l.med_jardiance || l.med_pioglitazone;
+  const faaCol = hasDQ ? 'var(--red)' : hasSI ? 'var(--amb)' : 'var(--grn)';
+  const faaTxt = hasDQ ? 'DQ RISK' : hasSI ? 'SI REQ.' : 'FAA OK';
+
+  // Mini bars — last 5, max 16px, on same row as trend
+  const bars = scored.slice(-5).map(e => {
+    const c = getHlColor(e.score);
+    const h = Math.max(3, Math.round(e.score / 100 * 16));
+    return `<div title="${e.score}/100" style="width:7px;height:${h}px;background:${c};border-radius:1px 1px 0 0;align-self:flex-end;opacity:0.85;"></div>`;
+  }).join('');
+
+  const glucoseCol = +l.avg_glucose <= 110 ? 'var(--grn)' : 'var(--amb)';
+
+  el.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;width:100%;">
+      <div style="flex-shrink:0;">
+        <div style="font-family:var(--fh);font-size:34px;font-weight:900;color:${col};line-height:1.1;">${latest.score}<span style="font-size:11px;color:var(--tx-d);font-weight:400;">/100</span></div>
+        <div style="display:flex;align-items:flex-end;gap:5px;margin-top:3px;">
+          <span style="font-family:var(--fd);font-size:7px;">${trendTxt}</span>
+          <div style="display:flex;gap:2px;align-items:flex-end;height:16px;">${bars}</div>
+        </div>
+      </div>
+      <div style="width:1px;height:46px;background:var(--brd);flex-shrink:0;"></div>
+      <div style="display:flex;flex-direction:column;gap:3px;font-family:var(--fd);font-size:8px;min-width:0;">
+        <div><i class="fa-solid fa-droplet" style="color:var(--amb);font-size:7px;margin-right:3px;"></i><span style="color:${glucoseCol};">${l.avg_glucose} mg/dL</span>${l.a1c ? ` &nbsp;<i class="fa-solid fa-vial" style="color:var(--blue);font-size:7px;margin-right:2px;"></i><span style="color:var(--blue-b);">${l.a1c}%</span>` : ''}</div>
+        <div>${l.sleep_hours!=null ? `<i class="fa-solid fa-moon" style="color:var(--slate);font-size:7px;margin-right:2px;"></i><span style="color:var(--slate);">${l.sleep_hours}h</span>` : ''}${l.sleep_hours!=null && l.exercise_mins!=null ? '&nbsp; ' : ''}${l.exercise_mins!=null ? `<i class="fa-solid fa-person-running" style="color:var(--slate);font-size:7px;margin-right:2px;"></i><span style="color:var(--slate);">${l.exercise_mins}min</span>` : ''}</div>
+        <div style="font-family:var(--fh);font-size:6px;letter-spacing:1px;color:${faaCol};"><i class="fa-solid fa-shield-halved" style="margin-right:2px;"></i>MEDS ${faaTxt} &nbsp;<span style="color:var(--tx-d);font-family:var(--fd);font-size:7px;">${l.date}</span></div>
+      </div>
+    </div>`;
 }
 
 function calcHealthScore(log, lastA1c) {
@@ -1455,6 +2601,439 @@ function toast(msg, type = 'ok') {
   t.className = `toast ${type} show`;
   setTimeout(() => t.classList.remove('show'), 2800);
 }
+
+// ── User Management ───────────────────────────
+let editingUserAv = {};
+
+function openFamilyModal() { document.getElementById('fam-modal').style.display = 'block'; }
+function closeFamilyModal() { document.getElementById('fam-modal').style.display = 'none'; }
+function switchFamTab(tab) {
+  const isTree = tab === 'tree';
+  document.getElementById('ftab-tree-content').style.display = isTree ? 'block' : 'none';
+  document.getElementById('ftab-full-content').style.display = isTree ? 'none' : 'block';
+  const tBtn = document.getElementById('ftab-tree');
+  const fBtn = document.getElementById('ftab-full');
+  tBtn.style.background = isTree ? 'rgba(0,77,38,0.3)' : 'transparent';
+  tBtn.style.borderColor = isTree ? 'var(--grn-d)' : 'var(--brd)';
+  tBtn.style.color = isTree ? 'var(--grn)' : 'var(--tx-d)';
+  fBtn.style.background = isTree ? 'transparent' : 'rgba(0,77,38,0.3)';
+  fBtn.style.borderColor = isTree ? 'var(--brd)' : 'var(--grn-d)';
+  fBtn.style.color = isTree ? 'var(--tx-d)' : 'var(--grn)';
+}
+
+async function openUsersModal() {
+  document.getElementById('users-modal').classList.remove('hidden');
+  await refreshUsersList();
+}
+
+function closeUsersModal() {
+  document.getElementById('users-modal').classList.add('hidden');
+}
+
+async function refreshUsersList() {
+  if (!db) return;
+  const { data } = await db.rpc('get_all_users', { p_admin: currentUser });
+  renderUsersList(data || []);
+}
+
+function renderUsersList(users) {
+  const el = document.getElementById('users-list');
+  if (!el) return;
+  if (!users.length) {
+    el.innerHTML = `<div style="padding:20px;text-align:center;font-family:var(--fd);font-size:9px;color:var(--muted);">No users found</div>`;
+    return;
+  }
+  el.innerHTML = users.map(u => {
+    const name   = u.u_name   || u.username || '?';
+    const av     = u.u_avatar || u.avatar   || '👤';
+    const role   = u.u_role   || u.role     || 'guest';
+    const status = u.u_status || u.status   || 'active';
+    const isSelf = name === currentUser;
+    return `<div class="urow" id="urow-${name}">
+      <div class="urow-main">
+        <div class="urow-av">${av}</div>
+        <div class="urow-info">
+          <div class="urow-name">${escHtml(name)}${isSelf ? ' <span style="font-family:var(--fd);font-size:7px;color:var(--tx-d);">(you)</span>' : ''}</div>
+          <div class="urow-badges">
+            <span class="rbadge ${role}">${role.toUpperCase()}</span>
+            <span class="sbadge ${status}">${status.toUpperCase()}</span>
+          </div>
+        </div>
+        <button class="u-edit-btn" onclick="toggleUserEdit('${name}')"><i class="fa-solid fa-pen" style="margin-right:3px;"></i>EDIT</button>
+        ${!isSelf ? `<button class="u-del-btn" onclick="deleteUser('${name}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+      </div>
+      <div class="u-edit-panel" id="uedit-${name}">
+        <div class="u-edit-row">
+          <span class="u-edit-lbl">ROLE</span>
+          <select class="u-role-sel" id="urole-${name}">
+            <option value="guest"${role==='guest'?' selected':''}>Guest</option>
+            <option value="admin"${role==='admin'?' selected':''}>Admin</option>
+          </select>
+        </div>
+        <div class="u-edit-row">
+          <span class="u-edit-lbl">AVATAR</span>
+        </div>
+        <div class="edit-av-grid" id="eavgrid-${name}"></div>
+        <div class="u-edit-row" style="margin-top:8px;">
+          <span class="u-edit-lbl">NEW PASS</span>
+          <input type="password" class="u-pass-inp" id="upass-${name}" placeholder="leave blank to keep">
+        </div>
+        <div style="margin-top:8px;display:flex;gap:6px;">
+          <button class="u-save-btn" onclick="saveUserEdit('${name}')"><i class="fa-solid fa-floppy-disk" style="margin-right:4px;"></i>SAVE</button>
+          <button onclick="toggleUserEdit('${name}')" style="font-family:var(--fd);font-size:8px;padding:5px 10px;background:none;border:1px solid var(--brd);color:var(--tx-d);border-radius:4px;cursor:pointer;">CANCEL</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  users.forEach(u => {
+    const name = u.u_name || u.username || '?';
+    const av   = u.u_avatar || u.avatar || '👤';
+    editingUserAv[name] = av;
+    renderEditAvGrid(name, av);
+  });
+}
+
+function renderEditAvGrid(username, selected) {
+  const grid = document.getElementById(`eavgrid-${username}`);
+  if (!grid) return;
+  grid.innerHTML = AVATARS.map(av =>
+    `<button class="av-btn${av===selected?' av-sel':''}" onclick="selectEditAv('${username}','${av}')">${av}</button>`
+  ).join('');
+}
+
+function selectEditAv(username, av) {
+  editingUserAv[username] = av;
+  renderEditAvGrid(username, av);
+}
+
+function toggleUserEdit(username) {
+  const panel = document.getElementById(`uedit-${username}`);
+  if (!panel) return;
+  panel.classList.toggle('open');
+}
+
+async function saveUserEdit(username) {
+  const role  = document.getElementById(`urole-${username}`)?.value || 'guest';
+  const pass  = document.getElementById(`upass-${username}`)?.value || '';
+  const av    = editingUserAv[username] || '👤';
+  const btn   = document.querySelector(`#uedit-${username} .u-save-btn`);
+  if (btn) { btn.textContent = 'SAVING…'; btn.disabled = true; }
+  const { data } = await db.rpc('admin_edit_user', {
+    p_admin: currentUser, p_username: username,
+    p_role: role, p_avatar: av, p_password: pass || null
+  });
+  if (data) {
+    if (btn) {
+      btn.style.background = 'var(--grn-d)';
+      btn.style.color = 'var(--grn)';
+      btn.innerHTML = '<i class="fa-solid fa-check" style="margin-right:4px;"></i>SAVED!';
+      setTimeout(async () => {
+        toggleUserEdit(username);
+        await refreshUsersList();
+      }, 900);
+    }
+    showToast(`✓ ${username} updated`);
+  } else {
+    if (btn) { btn.innerHTML = '<i class="fa-solid fa-floppy-disk" style="margin-right:4px;"></i>SAVE'; btn.disabled = false; }
+    showToast('Update failed');
+  }
+}
+
+async function deleteUser(username) {
+  if (!confirm(`Delete user "${username}"? This cannot be undone.`)) return;
+  await db.rpc('admin_update_user', { p_admin: currentUser, p_username: username, p_action: 'reject' });
+  showToast(`✗ ${username} deleted`);
+  await refreshUsersList();
+}
+
+// ── Notes & Kudos ─────────────────────────────
+const KUDOS_DEF = [
+  {id:'love',   emoji:'❤️',  label:'Love',         pos:true},
+  {id:'fire',   emoji:'🔥',  label:'On Fire!',     pos:true},
+  {id:'fly',    emoji:'✈️',  label:'Fly High',     pos:true},
+  {id:'strong', emoji:'💪',  label:'You Got This', pos:true},
+  {id:'star',   emoji:'⭐',  label:'Gold Star',    pos:true},
+  {id:'prayer', emoji:'🙏',  label:'Believe',      pos:true},
+  {id:'family', emoji:'👨‍👩‍👧‍👦',label:'Family',      pos:true},
+  {id:'warn',   emoji:'⚠️',  label:'Heads Up',     pos:false},
+  {id:'push',   emoji:'😤',  label:'Push Harder',  pos:false},
+];
+let selectedKudo = 'love';
+let allNotes = [];
+let notesAllExpanded = false;
+
+function initKudoPicker() {
+  const row = document.getElementById('kudo-picker');
+  if (!row) return;
+  row.innerHTML = KUDOS_DEF.map(k => {
+    const sel = k.id === selectedKudo ? (k.pos ? ' ksel-pos' : ' ksel-neg') : '';
+    return `<button class="kudo-btn${sel}" onclick="selectKudo('${k.id}')" title="${k.label}">${k.emoji}</button>`;
+  }).join('');
+}
+
+function selectKudo(id) { selectedKudo = id; initKudoPicker(); }
+
+async function loadNotes() {
+  if (!db) return;
+  const { data } = await db.from('notes').select('*').order('created_at', {ascending: false});
+  allNotes = data || [];
+  renderNotesLatest();
+  if (notesAllExpanded) renderNotesAll();
+  renderNotesScore();
+  const cnt = document.getElementById('notes-count');
+  if (cnt) cnt.textContent = allNotes.length ? `(${allNotes.length})` : '';
+  const seeAllText = document.getElementById('notes-see-all-text');
+  if (seeAllText) seeAllText.textContent = notesAllExpanded ? 'HIDE MESSAGES' : `SEE ALL ${allNotes.length} MESSAGES`;
+}
+
+function renderNotesLatest() {
+  const row = document.getElementById('notes-latest-row');
+  if (!row) return;
+  const byUser = {};
+  allNotes.forEach(n => { if (!byUser[n.author]) byUser[n.author] = n; });
+  const latest = Object.values(byUser);
+  if (!latest.length) {
+    row.innerHTML = `<div style="font-family:var(--fd);font-size:8px;color:var(--muted);padding:4px 0;">No messages yet — be the first!</div>`;
+    return;
+  }
+  row.innerHTML = latest.map(n => noteCardHtml(n, false)).join('');
+}
+
+function renderNotesAll() {
+  const list = document.getElementById('notes-all-list');
+  if (!list) return;
+  list.innerHTML = allNotes.length
+    ? allNotes.map(n => noteCardHtml(n, true)).join('')
+    : `<div style="font-family:var(--fd);font-size:8px;color:var(--muted);padding:8px 0;">No messages yet.</div>`;
+}
+
+function noteCardHtml(n, full) {
+  const kudo = KUDOS_DEF.find(k => k.id === n.kudo_type) || KUDOS_DEF[0];
+  const pos = kudo.pos ? 'pos' : 'neg';
+  const dateStr = new Date(n.created_at).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+  const av = n.avatar || '👤';
+  const msg = full
+    ? `<div class="nc-msg-full">${escHtml(n.message)}</div>`
+    : `<div class="nc-msg">${escHtml(n.message)}</div>`;
+  const del = currentRole === 'admin'
+    ? `<button class="nc-del" onclick="deleteNote('${n.id}',event)" title="Delete"><i class="fa-solid fa-trash-can"></i></button>`
+    : '';
+  return `<div class="note-card ${pos}">${del}
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+      <span style="font-size:22px;line-height:1;">${av}</span>
+      <div>
+        <div class="nc-author">${escHtml(n.author)}</div>
+        <div class="nc-time">${dateStr}</div>
+      </div>
+      <span style="margin-left:auto;font-size:18px;">${kudo.emoji}</span>
+    </div>
+    ${msg}
+  </div>`;
+}
+
+function renderNotesScore() {
+  const row = document.getElementById('notes-score-row');
+  const preview = document.getElementById('notes-score-preview');
+  let pos = 0, neg = 0;
+  const counts = {};
+  allNotes.forEach(n => {
+    const k = KUDOS_DEF.find(k => k.id === n.kudo_type);
+    if (!k) return;
+    k.pos ? pos++ : neg++;
+    counts[k.emoji] = (counts[k.emoji] || 0) + 1;
+  });
+  const topKudos = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6)
+    .map(([em,c]) => `<span style="font-size:15px;">${em}</span><span style="font-family:var(--fd);font-size:7px;color:var(--tx-d);">×${c}</span>`).join(' ');
+  if (row) row.innerHTML = `
+    <div><span class="ns-score" style="color:var(--grn);">+${pos}</span><br><span class="ns-lbl">POSITIVE</span></div>
+    <div><span class="ns-score" style="color:var(--red);">${neg||'—'}</span><br><span class="ns-lbl">CONCERNS</span></div>
+    <div style="flex:1;display:flex;gap:6px;align-items:center;flex-wrap:wrap;">${topKudos}</div>`;
+  if (preview) preview.innerHTML = pos || neg ? `
+    <span style="font-family:var(--fd);font-size:8px;color:var(--grn);">+${pos}</span>
+    ${neg ? `<span style="font-family:var(--fd);font-size:8px;color:var(--red);">${neg}⚠</span>` : ''}` : '';
+}
+
+function toggleNotes() {
+  const body = document.getElementById('notes-body');
+  const icon = document.getElementById('notes-toggle-icon');
+  const open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  icon.textContent = open ? '▶' : '▼';
+}
+
+function toggleNotesAll() {
+  notesAllExpanded = !notesAllExpanded;
+  const list = document.getElementById('notes-all-list');
+  const icon = document.getElementById('notes-see-all-icon');
+  const text = document.getElementById('notes-see-all-text');
+  list.style.display = notesAllExpanded ? 'flex' : 'none';
+  icon.textContent = notesAllExpanded ? '▼' : '▶';
+  text.textContent = notesAllExpanded ? 'HIDE MESSAGES' : `SEE ALL ${allNotes.length} MESSAGES`;
+  if (notesAllExpanded) renderNotesAll();
+}
+
+async function submitNote() {
+  const sess = JSON.parse(localStorage.getItem(SESSION_KEY) || '{}');
+  const author = sess.user || 'anonymous';
+  const msg = (document.getElementById('note-msg-input').value || '').trim();
+  if (!msg) { document.getElementById('note-msg-input').focus(); return; }
+  const btn = document.getElementById('note-send-btn');
+  btn.disabled = true;
+  const { error } = await db.from('notes').insert({ author, message: msg, kudo_type: selectedKudo, avatar: currentAvatar });
+  if (!error) {
+    document.getElementById('note-msg-input').value = '';
+    showToast('Message sent! 💌');
+    await loadNotes();
+  } else {
+    showToast('Failed to send — try again.');
+  }
+  btn.disabled = false;
+}
+
+async function deleteNote(id, e) {
+  if (e) e.stopPropagation();
+  if (currentRole !== 'admin') return;
+  if (!confirm('Delete this note?')) return;
+  const { error } = await db.from('notes').delete().eq('id', id);
+  if (!error) { showToast('Note deleted.'); await loadNotes(); }
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── Family Animation Scenes ───────────────────
+let famAnimTimer = null;
+
+function openFamAnim(type, e) {
+  if (e) e.stopPropagation();
+  clearTimeout(famAnimTimer);
+  const overlay = document.getElementById('fam-anim-overlay');
+  const scene   = document.getElementById('fam-anim-scene');
+  const titleEl = document.getElementById('fam-anim-title');
+  overlay.classList.remove('hidden');
+  if (type === 'mevanur') {
+    titleEl.style.color = 'var(--blue-b)';
+    titleEl.textContent = '✈  MEVA WILL FLY WITH DADDY  ✈';
+    scene.style.background = 'linear-gradient(180deg,#030810 0%,#071a38 45%,#0d3565 100%)';
+    scene.style.border = '2px solid var(--blue)';
+    scene.innerHTML = buildMevanurScene();
+  } else if (type === 'baby') {
+    titleEl.style.color = 'var(--ora-b)';
+    titleEl.textContent = '♡  SHE\'S COMING — SEP 12  ♡';
+    scene.style.background = 'linear-gradient(180deg,#180804 0%,#3d1200 45%,#7a2c00 100%)';
+    scene.style.border = '2px solid var(--ora)';
+    scene.innerHTML = buildBabyScene();
+  } else {
+    titleEl.style.color = 'var(--grn)';
+    titleEl.textContent = '★  THIS IS WHY YOU FLY  ★';
+    scene.style.background = 'linear-gradient(180deg,#020608 0%,#061020 45%,#0a1e14 100%)';
+    scene.style.border = '2px solid var(--grn)';
+    scene.innerHTML = buildMissionScene();
+  }
+  famAnimTimer = setTimeout(closeFamAnim, 7000);
+}
+
+function closeFamAnim() {
+  clearTimeout(famAnimTimer);
+  document.getElementById('fam-anim-overlay').classList.add('hidden');
+}
+
+function buildMevanurScene() {
+  let h = '';
+  // Stars
+  [[8,12],[22,5],[48,14],[68,4],[84,20],[93,10],[14,32],[58,26],[79,8],[38,18],[55,38],[28,42]].forEach(([x,y],i)=>{
+    h += `<div style="position:absolute;left:${x}%;top:${y}%;width:${1+i%3}px;height:${1+i%3}px;background:white;border-radius:50%;animation:twinkle ${1.2+i*.22}s ${i*.18}s ease-in-out infinite;opacity:0.7;"></div>`;
+  });
+  // Clouds
+  h += `<div style="position:absolute;top:28%;width:110px;height:28px;background:rgba(100,150,220,0.12);border-radius:50px;animation:cloud-drift 14s 0s linear infinite;"></div>`;
+  h += `<div style="position:absolute;top:18%;width:80px;height:20px;background:rgba(100,150,220,0.08);border-radius:50px;animation:cloud-drift 18s 3s linear infinite;"></div>`;
+  // Plane + family
+  h += `<div style="position:absolute;top:42%;left:0;animation:fly-arc 5s .4s ease-in-out both;">
+    <div style="position:relative;display:inline-block;line-height:1;">
+      <span style="font-size:56px;">✈️</span>
+      <span style="position:absolute;top:-14px;left:18px;font-size:24px;animation:bob 1.1s ease-in-out infinite;">👨‍✈️</span>
+      <span style="position:absolute;top:-18px;left:46px;font-size:20px;animation:bob 1.1s .35s ease-in-out infinite;">👧</span>
+    </div>
+  </div>`;
+  // Speech bubble appears mid-flight
+  h += `<div style="position:absolute;top:14%;left:50%;transform:translateX(-50%);background:rgba(26,111,219,0.22);border:1px solid var(--blue);border-radius:10px;padding:7px 14px;font-family:var(--fh);font-size:10px;font-weight:900;color:var(--blue-b);letter-spacing:2px;animation:fadeup .5s 2s both;white-space:nowrap;">DADDY I'M FLYING! ✨</div>`;
+  // Cats on the ground waving
+  h += `<div style="position:absolute;bottom:8px;left:12%;font-size:28px;animation:bob 1.3s ease-in-out infinite;">🐱</div>`;
+  h += `<div style="position:absolute;bottom:6px;left:26%;font-size:24px;animation:bob 1.5s .2s ease-in-out infinite;">🐈</div>`;
+  h += `<div style="position:absolute;bottom:8px;right:18%;font-size:26px;animation:bob 1.2s .4s ease-in-out infinite;">🐱</div>`;
+  h += `<div style="position:absolute;bottom:4px;right:6%;font-size:22px;animation:bob 1.6s .3s ease-in-out infinite;">🐈‍⬛</div>`;
+  // Cat speech bubble
+  h += `<div style="position:absolute;bottom:38px;left:6%;font-family:var(--fd);font-size:8px;color:rgba(200,223,240,0.7);animation:fadeup .5s 3s both;letter-spacing:1px;">meow! ✈</div>`;
+  // Horizon glow
+  h += `<div style="position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,rgba(13,53,101,0.6));"></div>`;
+  return h;
+}
+
+function buildBabyScene() {
+  let h = '';
+  // Floating hearts
+  [['10','82','💕',18,'1.6s','0s'],['26','87','❤️',14,'2s','0.3s'],['42','90','🩷',20,'1.9s','0.6s'],
+   ['57','81','💕',16,'2.2s','0.15s'],['72','88','❤️',14,'1.7s','0.8s'],['87','83','🩷',18,'2s','0.45s'],
+   ['16','76','💕',12,'1.8s','1s'],['62','85','❤️',22,'2.1s','0.05s'],['36','79','🩷',14,'1.6s','0.7s'],
+   ['80','87','💕',16,'2.3s','0.55s'],['50','92','❤️',12,'1.5s','1.2s'],['20','89','🩷',16,'2s','0.9s'],
+   ['68','78','💕',20,'1.9s','0.35s'],['44','84','❤️',14,'2.1s','1.1s']
+  ].forEach(([x,y,em,sz,dur,del])=>{
+    h += `<div style="position:absolute;left:${x}%;top:${y}%;font-size:${sz}px;animation:heart-sway ${dur} ${del} ease-out infinite;">${em}</div>`;
+  });
+  // Baby burst
+  h += `<div style="position:absolute;top:50%;left:50%;animation:burst .8s .3s both;text-align:center;line-height:1;">
+    <span style="font-size:88px;animation:bob 2.2s ease-in-out infinite;display:block;">👶</span>
+  </div>`;
+  // Sparkles
+  [[18,18],[76,22],[12,58],[82,52],[46,8],[64,68],[28,78],[90,38],[52,85]].forEach(([x,y],i)=>{
+    h += `<div style="position:absolute;left:${x}%;top:${y}%;font-size:${12+i%3*5}px;animation:twinkle ${.8+i*.2}s ${i*.15}s ease-in-out infinite;">✨</div>`;
+  });
+  // Caption
+  h += `<div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-family:var(--fh);font-size:9px;font-weight:900;color:var(--ora-b);letter-spacing:2px;white-space:nowrap;animation:fadeup .5s 1s both;text-shadow:0 0 10px rgba(255,107,26,0.5);">WELCOME TO THE WORLD LITTLE ONE 💕</div>`;
+  return h;
+}
+
+function buildMissionScene() {
+  let h = '';
+  // Stars
+  [[5,8],[18,4],[34,7],[52,2],[66,10],[81,5],[92,14],[10,22],[72,18],[46,16],[88,28],[15,33],[60,25],[30,40],[78,35]].forEach(([x,y],i)=>{
+    const c = i%3===0?'var(--grn)':i%3===1?'var(--blue-b)':'white';
+    h += `<div style="position:absolute;left:${x}%;top:${y}%;width:${1+i%3}px;height:${1+i%3}px;background:${c};border-radius:50%;animation:twinkle ${1+i*.24}s ${i*.14}s ease-in-out infinite;"></div>`;
+  });
+  // Rainbow arc
+  h += `<div style="position:absolute;top:35%;left:8%;width:84%;height:140px;border-radius:50% 50% 0 0;border-top:3px solid rgba(0,230,118,0.25);border-left:2px solid rgba(77,163,255,0.15);border-right:2px solid rgba(255,106,26,0.15);animation:rainbow-in 1.5s .5s both;"></div>`;
+  // Plane center
+  h += `<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);font-size:72px;animation:bob 3s ease-in-out infinite;filter:drop-shadow(0 0 14px rgba(0,230,118,0.35));">✈️</div>`;
+  // Family members
+  [['👨‍✈️',16,24,38,'AHMET','0.5s'],['👩',60,24,32,'SEYDA','0.7s'],['👧',14,56,30,'MEVA','0.9s'],['👶',62,56,26,'BABY GIRL','1.1s']].forEach(([em,x,y,sz,lbl,del])=>{
+    h += `<div style="position:absolute;left:${x}%;top:${y}%;text-align:center;animation:fadeup .5s ${del} both;">
+      <div style="font-size:${sz}px;animation:bob ${1.4+Math.random()*.8}s ease-in-out infinite;">${em}</div>
+      <div style="font-family:var(--fd);font-size:7px;color:var(--grn);letter-spacing:1px;margin-top:2px;">${lbl}</div>
+    </div>`;
+  });
+  // Celebration sparks
+  ['⭐','✦','★','💫','⚡','✴'].forEach((em,i)=>{
+    const positions = [[4,44],[89,40],[10,68],[84,66],[48,78],[52,10]];
+    const [x,y] = positions[i];
+    h += `<div style="position:absolute;left:${x}%;top:${y}%;font-size:15px;color:var(--grn);animation:celebrate 3s ${.4+i*.3}s ease both;">${em}</div>`;
+  });
+  // Caption
+  h += `<div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-family:var(--fh);font-size:9px;font-weight:900;color:var(--grn);letter-spacing:2px;white-space:nowrap;animation:fadeup .5s 1.3s both;text-shadow:0 0 10px rgba(0,230,118,0.5);">FAMILY OF FOUR — UP IN THE SKY ✈</div>`;
+  return h;
+}
+
+function openPilotPip(){
+  window.open('https://www.youtube.com/shorts/e3eGnUjAlYA','pilotPip','width=380,height=680,left='+(screen.width-400)+',top='+(screen.height-720));
+}
+function openMevaPip(){
+  window.open('https://www.youtube.com/shorts/sTfw310qMkQ','mevaPip','width=380,height=680,left='+(screen.width-400)+',top='+(screen.height-720));
+}
+function openSeydaPip(){
+  window.open('https://www.youtube.com/shorts/oN-cUwqCtuo','seydaPip','width=380,height=680,left='+(screen.width-400)+',top='+(screen.height-720));
+}
+
 </script>
 </body>
 </html>
